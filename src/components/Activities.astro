@@ -1,0 +1,51 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { withBase } from '../lib/paths';
+
+interface Props {
+  sectionTitle: string;
+  subtitle: string;
+  activities: CollectionEntry<'activities'>[];
+}
+
+const { sectionTitle, subtitle, activities } = Astro.props;
+
+function imageSrc(image?: string) {
+  if (!image) return null;
+  if (image.startsWith('http://') || image.startsWith('https://')) return image;
+  const path = image.startsWith('/') ? image.slice(1) : image;
+  return withBase(path);
+}
+---
+
+<section id="activities" class="activities section-alt">
+  <div class="container">
+    <div class="section-header">
+      <h2>{sectionTitle}</h2>
+      <p class="subtitle">{subtitle}</p>
+    </div>
+    <div class="activity-cards">
+      {
+        activities.map((item) => {
+          const img = imageSrc(item.data.image);
+          const placeholder = item.data.imagePlaceholder ?? '[ Project Image ]';
+          return (
+            <article class="card">
+              {img ? (
+                <div class="card-image">
+                  <img src={img} alt="" loading="lazy" />
+                </div>
+              ) : (
+                <div class="card-img-placeholder">{placeholder}</div>
+              )}
+              <div class="card-content">
+                <h3>{item.data.title}</h3>
+                <p>{item.data.description}</p>
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

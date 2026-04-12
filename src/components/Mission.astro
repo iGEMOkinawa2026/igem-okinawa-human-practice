@@ -1,0 +1,34 @@
+---
+interface MissionCard {
+  icon: string;
+  title: string;
+  body: string;
+}
+
+interface Props {
+  sectionTitle: string;
+  subtitle: string;
+  cards: MissionCard[];
+}
+const { sectionTitle, subtitle, cards } = Astro.props;
+---
+
+<section class="mission section">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2>{sectionTitle}</h2>
+      <p class="subtitle">{subtitle}</p>
+    </div>
+    <div class="mission-grid">
+      {
+        cards.map((card) => (
+          <div class="mission-card">
+            <div class="icon">{card.icon}</div>
+            <h3>{card.title}</h3>
+            <p>{card.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

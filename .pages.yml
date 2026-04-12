@@ -1,0 +1,114 @@
+media:
+  input: public/media
+  output: /media
+
+content:
+  - name: activities
+    label: Activities / Highlights
+    type: collection
+    path: src/content/activities
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      primary: title
+      sort:
+        - order
+        - title
+      default:
+        sort: order
+        order: asc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text
+        required: true
+      - name: image
+        label: Image
+        type: image
+        required: false
+      - name: imagePlaceholder
+        label: Image placeholder (no image)
+        type: string
+        required: false
+      - name: order
+        label: Sort order
+        type: number
+        required: false
+
+  - name: sponsors
+    label: Sponsors
+    type: collection
+    path: src/content/sponsors
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      primary: name
+      sort:
+        - order
+        - name
+      default:
+        sort: order
+        order: asc
+    fields:
+      - name: name
+        label: Name
+        type: string
+        required: true
+      - name: logo
+        label: Logo
+        type: image
+        required: false
+      - name: tier
+        label: Tier
+        type: select
+        required: true
+        options:
+          values:
+            - name: gold
+              label: Gold
+            - name: silver
+              label: Silver
+            - name: bronze
+              label: Bronze
+            - name: partner
+              label: Partner
+      - name: order
+        label: Sort order
+        type: number
+        required: false
+
+  - name: archive
+    label: Archive entries
+    type: collection
+    path: src/content/archive
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      primary: title
+      sort:
+        - year
+        - order
+      default:
+        sort: year
+        order: desc
+    fields:
+      - name: year
+        label: Year
+        type: number
+        required: true
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: summary
+        label: Summary
+        type: text
+        required: true
+      - name: order
+        label: Sort order (within year)
+        type: number
+        required: false

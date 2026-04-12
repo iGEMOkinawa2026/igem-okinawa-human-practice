@@ -1,0 +1,88 @@
+---
+interface FooterLink {
+  label: string;
+  href: string;
+}
+
+interface SocialLink {
+  platform: string;
+  url: string;
+  shortLabel?: string;
+}
+
+interface Props {
+  brandTitle: string;
+  brandTagline: string;
+  exploreHeading: string;
+  exploreLinks: FooterLink[];
+  connectHeading: string;
+  copyrightLine: string;
+  privacyHref: string;
+  privacyLabel: string;
+  termsHref: string;
+  termsLabel: string;
+  socialLinks: SocialLink[];
+}
+
+const {
+  brandTitle,
+  brandTagline,
+  exploreHeading,
+  exploreLinks,
+  connectHeading,
+  copyrightLine,
+  privacyHref,
+  privacyLabel,
+  termsHref,
+  termsLabel,
+  socialLinks,
+} = Astro.props;
+
+const defaultShort: Record<string, string> = {
+  twitter: '𝕏',
+  x: '𝕏',
+  instagram: 'IG',
+  linkedin: 'IN',
+  github: 'GH',
+};
+
+function shortLabel(link: SocialLink) {
+  if (link.shortLabel) return link.shortLabel;
+  const key = link.platform.trim().toLowerCase();
+  return defaultShort[key] ?? link.platform.slice(0, 2).toUpperCase();
+}
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <h3>{brandTitle}</h3>
+      <p>{brandTagline}</p>
+    </div>
+    <div class="footer-links">
+      <h4>{exploreHeading}</h4>
+      <ul>
+        {exploreLinks.map((l) => (
+          <li>
+            <a href={l.href}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="footer-social">
+      <h4>{connectHeading}</h4>
+      <div class="social-icons">
+        {socialLinks.map((link) => (
+          <a href={link.url} aria-label={link.platform}>{shortLabel(link)}</a>
+        ))}
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom container">
+    <p>{copyrightLine}</p>
+    <div class="footer-meta-links">
+      <a href={privacyHref}>{privacyLabel}</a>
+      <a href={termsHref}>{termsLabel}</a>
+    </div>
+  </div>
+</footer>

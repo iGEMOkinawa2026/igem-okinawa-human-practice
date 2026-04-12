@@ -1,0 +1,139 @@
+---
+import { getCollection } from 'astro:content';
+import YAML from 'yaml';
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Mission from '../components/Mission.astro';
+import Activities from '../components/Activities.astro';
+import Support from '../components/Support.astro';
+import ArchivePreview from '../components/ArchivePreview.astro';
+import Footer from '../components/Footer.astro';
+
+import { withBase } from '../lib/paths';
+
+import socialRaw from '../data/social.yaml?raw';
+
+const social = YAML.parse(socialRaw) as {
+  links: { platform: string; url: string; shortLabel?: string }[];
+};
+
+const activities = (await getCollection('activities')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const sponsors = (await getCollection('sponsors')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const archiveEntries = (await getCollection('archive')).sort((a, b) => {
+  if (b.data.year !== a.data.year) return b.data.year - a.data.year;
+  return a.data.order - b.data.order;
+});
+
+const pageTitle = 'iGEM Okinawa | 2026 Team';
+const pageDescription =
+  'iGEM Okinawa is a student-led synthetic biology research team representing Okinawa to the world. Currently highlighting the 2026 Team.';
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <Header
+    siteTitle="iGEM Okinawa"
+    logoHref="#"
+    navItems={[
+      { label: 'About', href: '#about' },
+      { label: 'Activities', href: '#activities' },
+      { label: 'Support Us', href: '#support' },
+      { label: 'Archive', href: '#archive' },
+    ]}
+  />
+
+  <main>
+    <Hero
+      badgeText="Introducing"
+      headingPrefix="The "
+      headingStrong="2026"
+      headingSuffix=" Team"
+      lede="We are iGEM Okinawa. Fusing the incredible biodiversity of the Ryukyu Islands with cutting-edge synthetic biology to solve global challenges."
+      primaryCtaLabel="Support Our Research"
+      primaryCtaHref="#support"
+      secondaryCtaLabel="See Current Projects"
+      secondaryCtaHref="#activities"
+      imagePlaceholderText="[ 2026 Team Image Placeholder ]"
+    />
+
+    <About
+      visualPlaceholder="[ Science / Bio Graphic ]"
+      title="What is iGEM Okinawa?"
+      paragraphs={[
+        'iGEM Okinawa is a collective of passionate students from various disciplines, united by a shared vision: to advance synthetic biology and apply it to real-world problems.',
+        'Originating from the unique island environment of Okinawa, we aim to bridge local ecological wisdom with global scientific innovation. Our multidisciplinary approach means we tackle problems ranging from environmental conservation to finding novel biotechnological applications.',
+      ]}
+    />
+
+    <Mission
+      sectionTitle="Our Mission & Origins"
+      subtitle="Why we exist and what drives our pursuit of science."
+      cards={[
+        {
+          icon: '🌴',
+          title: 'Rooted in Okinawa',
+          body: 'We draw inspiration from our local ecosystem, leveraging unique biological resources while answering local challenges with global implications.',
+        },
+        {
+          icon: '🔬',
+          title: 'Science-Driven',
+          body: 'Rigorous research, meticulous lab work, and data-driven insights are at the core of every project we deploy.',
+        },
+        {
+          icon: '🌍',
+          title: 'Internationally Active',
+          body: 'We aim to represent Japanese innovation at the Giant Jamboree, collaborating and competing with the brightest young minds worldwide.',
+        },
+      ]}
+    />
+
+    <Activities
+      sectionTitle="2026 Highlights"
+      subtitle="What our team is working on right now."
+      activities={activities}
+    />
+
+    <Support
+      title="Empower the Next Generation of Scientists"
+      body="iGEM Okinawa's journey is made possible by the generosity of our sponsors and community. Your support directly funds our lab equipment, project development, and entry into the international iGEM competition."
+      sponsorCtaHref="mailto:contact@igem-okinawa.jp"
+      sponsorCtaLabel="Become a Sponsor"
+      deckHref="#"
+      deckLabel="View Sponsorship Deck"
+      sponsors={sponsors}
+    />
+
+    <ArchivePreview
+      title="Past Activities & Previous Teams"
+      body="Our journey didn't start this year. Explore the legacy, past projects, and the alumni who laid the foundation for iGEM Okinawa."
+      archiveButtonLabel="Visit the Archive"
+      archiveHref={withBase('archive/')}
+      entries={archiveEntries}
+    />
+  </main>
+
+  <Footer
+    brandTitle="iGEM Okinawa"
+    brandTagline="Innovating with synthetic biology from the Ryukyu Islands to the world."
+    exploreHeading="Explore"
+    exploreLinks={[
+      { label: 'About Us', href: '#about' },
+      { label: 'Activities', href: '#activities' },
+      { label: 'Sponsor Us', href: '#support' },
+      { label: 'Archive', href: '#archive' },
+    ]}
+    connectHeading="Connect"
+    copyrightLine="© 2026 iGEM Okinawa. All rights reserved."
+    privacyHref="#"
+    privacyLabel="Privacy Policy"
+    termsHref="#"
+    termsLabel="Terms of Use"
+    socialLinks={social.links}
+  />
+</BaseLayout>

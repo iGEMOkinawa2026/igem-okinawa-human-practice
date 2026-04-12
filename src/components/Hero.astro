@@ -1,0 +1,47 @@
+---
+interface Props {
+  badgeText: string;
+  headingPrefix: string;
+  headingStrong: string;
+  headingSuffix: string;
+  lede: string;
+  primaryCtaLabel: string;
+  primaryCtaHref: string;
+  secondaryCtaLabel: string;
+  secondaryCtaHref: string;
+  imagePlaceholderText: string;
+}
+const {
+  badgeText,
+  headingPrefix,
+  headingStrong,
+  headingSuffix,
+  lede,
+  primaryCtaLabel,
+  primaryCtaHref,
+  secondaryCtaLabel,
+  secondaryCtaHref,
+  imagePlaceholderText,
+} = Astro.props;
+---
+
+<section class="hero">
+  <div class="hero-bg-accent"></div>
+  <div class="container hero-content">
+    <div class="hero-text">
+      <span class="badge">{badgeText}</span>
+      <h1>{headingPrefix}<strong>{headingStrong}</strong>{headingSuffix}</h1>
+      <p>{lede}</p>
+      <div class="hero-actions">
+        <a href={primaryCtaHref} class="btn btn-primary">{primaryCtaLabel}</a>
+        <a href={secondaryCtaHref} class="btn btn-secondary">{secondaryCtaLabel}</a>
+      </div>
+    </div>
+    <div class="hero-image-wrapper">
+      <div class="hero-image-placeholder">
+        <span class="placeholder-text">{imagePlaceholderText}</span>
+      </div>
+      <div class="decoration-dots"></div>
+    </div>
+  </div>
+</section>

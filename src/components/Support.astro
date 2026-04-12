@@ -1,0 +1,62 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { withBase } from '../lib/paths';
+
+interface Props {
+  title: string;
+  body: string;
+  sponsorCtaHref: string;
+  sponsorCtaLabel: string;
+  deckHref: string;
+  deckLabel: string;
+  sponsors: CollectionEntry<'sponsors'>[];
+}
+
+const { title, body, sponsorCtaHref, sponsorCtaLabel, deckHref, deckLabel, sponsors } =
+  Astro.props;
+
+const tierLabel: Record<string, string> = {
+  gold: 'Gold',
+  silver: 'Silver',
+  bronze: 'Bronze',
+  partner: 'Partner',
+};
+
+function logoSrc(logo?: string) {
+  if (!logo) return null;
+  if (logo.startsWith('http://') || logo.startsWith('https://')) return logo;
+  const path = logo.startsWith('/') ? logo.slice(1) : logo;
+  return withBase(path);
+}
+---
+
+<section id="support" class="support section">
+  <div class="support-bg"></div>
+  <div class="container support-content text-center">
+    <h2>{title}</h2>
+    <p>{body}</p>
+    {
+      sponsors.length > 0 && (
+        <div class="sponsor-logos" aria-label="Sponsors">
+          {sponsors.map((s) => {
+            const src = logoSrc(s.data.logo);
+            return (
+              <div class="sponsor-item">
+                {src ? (
+                  <img src={src} alt={s.data.name} loading="lazy" />
+                ) : (
+                  <span class="sponsor-name-fallback">{s.data.name}</span>
+                )}
+                <span class="sponsor-tier">{tierLabel[s.data.tier] ?? s.data.tier} sponsor</span>
+              </div>
+            );
+          })}
+        </div>
+      )
+    }
+    <div class="sponsor-actions">
+      <a href={sponsorCtaHref} class="btn btn-primary btn-large">{sponsorCtaLabel}</a>
+      <a href={deckHref} class="btn btn-outline-white btn-large">{deckLabel}</a>
+    </div>
+  </div>
+</section>

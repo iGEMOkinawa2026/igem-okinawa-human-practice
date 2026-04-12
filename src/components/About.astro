@@ -1,0 +1,21 @@
+---
+interface Props {
+  visualPlaceholder: string;
+  title: string;
+  paragraphs: [string, string];
+}
+const { visualPlaceholder, title, paragraphs } = Astro.props;
+---
+
+<section id="about" class="intro section-alt">
+  <div class="container intro-container">
+    <div class="intro-visual">
+      <div class="dna-graphic-placeholder">{visualPlaceholder}</div>
+    </div>
+    <div class="intro-content">
+      <h2>{title}</h2>
+      <p>{paragraphs[0]}</p>
+      <p>{paragraphs[1]}</p>
+    </div>
+  </div>
+</section>

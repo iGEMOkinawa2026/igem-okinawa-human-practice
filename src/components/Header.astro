@@ -1,0 +1,74 @@
+---
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  siteTitle: string;
+  logoHref: string;
+  navItems: NavItem[];
+  langEnLabel?: string;
+  langJpLabel?: string;
+}
+
+const {
+  siteTitle,
+  logoHref,
+  navItems,
+  langEnLabel = 'EN',
+  langJpLabel = 'JP',
+} = Astro.props;
+---
+
+<header class="site-header">
+  <div class="header-container">
+    <div class="logo">
+      <a href={logoHref}>{siteTitle}</a>
+    </div>
+
+    <button
+      id="mobile-menu-toggle"
+      class="mobile-menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+
+    <nav id="main-nav" class="main-nav" aria-label="Primary">
+      <ul>
+        {navItems.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+      <div class="lang-switcher">
+        <button class="lang-btn active" type="button">{langEnLabel}</button>
+        <span class="lang-sep">/</span>
+        <button class="lang-btn" type="button">{langJpLabel}</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.getElementById('mobile-menu-toggle');
+    const mainNav = document.getElementById('main-nav');
+
+    if (menuToggle && mainNav) {
+      menuToggle.addEventListener('click', () => {
+        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+        mainNav.classList.toggle('nav-open');
+      });
+    }
+  });
+</script>

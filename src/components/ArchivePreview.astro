@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  title: string;
+  body: string;
+  archiveButtonLabel: string;
+  archiveHref: string;
+  entries: CollectionEntry<'archive'>[];
+}
+
+const { title, body, archiveButtonLabel, archiveHref, entries } = Astro.props;
+---
+
+<section id="archive" class="archive-preview section-alt">
+  <div class="container archive-container">
+    <div class="archive-main">
+      <div class="archive-text">
+        <h2>{title}</h2>
+        <p>{body}</p>
+      </div>
+      {
+        entries.length > 0 && (
+          <div class="archive-entries">
+            {entries.map((e) => (
+              <article class="archive-entry">
+                <div class="archive-entry-year">{e.data.year}</div>
+                <h3>{e.data.title}</h3>
+                <p class="archive-entry-summary">{e.data.summary}</p>
+              </article>
+            ))}
+          </div>
+        )
+      }
+    </div>
+    <div class="archive-action">
+      <a href={archiveHref} class="btn btn-outline-dark">{archiveButtonLabel}</a>
+    </div>
+  </div>
+</section>

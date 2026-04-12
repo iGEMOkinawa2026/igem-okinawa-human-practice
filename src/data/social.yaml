@@ -1,0 +1,10 @@
+# Social profiles (platform + url). Optional shortLabel overrides the default abbreviation.
+links:
+  - platform: Twitter
+    url: "#"
+  - platform: Instagram
+    url: "#"
+  - platform: LinkedIn
+    url: "#"
+  - platform: GitHub
+    url: "#"
