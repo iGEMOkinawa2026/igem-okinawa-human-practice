@@ -1,6 +1,8 @@
 ---
 interface Props {
   badgeText: string;
+  /** When true, badge avoids all-caps styling (better for Japanese). */
+  badgeNatural?: boolean;
   headingPrefix: string;
   headingStrong: string;
   headingSuffix: string;
@@ -13,6 +15,7 @@ interface Props {
 }
 const {
   badgeText,
+  badgeNatural = false,
   headingPrefix,
   headingStrong,
   headingSuffix,
@@ -23,13 +26,15 @@ const {
   secondaryCtaHref,
   imagePlaceholderText,
 } = Astro.props;
+
+const badgeClass = badgeNatural ? 'badge badge--natural' : 'badge';
 ---
 
 <section class="hero">
   <div class="hero-bg-accent"></div>
   <div class="container hero-content">
     <div class="hero-text">
-      <span class="badge">{badgeText}</span>
+      <span class={badgeClass}>{badgeText}</span>
       <h1>{headingPrefix}<strong>{headingStrong}</strong>{headingSuffix}</h1>
       <p>{lede}</p>
       <div class="hero-actions">

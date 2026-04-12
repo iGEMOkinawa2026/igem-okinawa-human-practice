@@ -1,8 +1,10 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import type { SiteLocale } from '../data/homeCopy';
 import { withBase } from '../lib/paths';
 
 interface Props {
+  locale: SiteLocale;
   title: string;
   body: string;
   sponsorCtaHref: string;
@@ -12,21 +14,35 @@ interface Props {
   sponsors: CollectionEntry<'sponsors'>[];
 }
 
-const { title, body, sponsorCtaHref, sponsorCtaLabel, deckHref, deckLabel, sponsors } =
+const { locale, title, body, sponsorCtaHref, sponsorCtaLabel, deckHref, deckLabel, sponsors } =
   Astro.props;
 
-const tierLabel: Record<string, string> = {
+const tierLabelEn: Record<string, string> = {
   gold: 'Gold',
   silver: 'Silver',
   bronze: 'Bronze',
   partner: 'Partner',
 };
 
+const tierLabelJa: Record<string, string> = {
+  gold: 'ゴールド',
+  silver: 'シルバー',
+  bronze: 'ブロンズ',
+  partner: 'パートナー',
+};
+
+const tierLabel = locale === 'ja' ? tierLabelJa : tierLabelEn;
+
 function logoSrc(logo?: string) {
   if (!logo) return null;
   if (logo.startsWith('http://') || logo.startsWith('https://')) return logo;
   const path = logo.startsWith('/') ? logo.slice(1) : logo;
   return withBase(path);
+}
+
+function sponsorName(entry: CollectionEntry<'sponsors'>) {
+  if (locale === 'ja' && entry.data.name_ja) return entry.data.name_ja;
+  return entry.data.name;
 }
 ---
 
@@ -37,17 +53,22 @@ function logoSrc(logo?: string) {
     <p>{body}</p>
     {
       sponsors.length > 0 && (
-        <div class="sponsor-logos" aria-label="Sponsors">
+        <div class="sponsor-logos" aria-label={locale === 'ja' ? 'スポンサー' : 'Sponsors'}>
           {sponsors.map((s) => {
             const src = logoSrc(s.data.logo);
+            const name = sponsorName(s);
+            const tierKey = s.data.tier;
+            const tierText = tierLabel[tierKey] ?? tierKey;
+            const tierLine =
+              locale === 'ja' ? `${tierText}スポンサー` : `${tierText} sponsor`;
             return (
               <div class="sponsor-item">
                 {src ? (
-                  <img src={src} alt={s.data.name} loading="lazy" />
+                  <img src={src} alt={name} loading="lazy" />
                 ) : (
-                  <span class="sponsor-name-fallback">{s.data.name}</span>
+                  <span class="sponsor-name-fallback">{name}</span>
                 )}
-                <span class="sponsor-tier">{tierLabel[s.data.tier] ?? s.data.tier} sponsor</span>
+                <span class="sponsor-tier">{tierLine}</span>
               </div>
             );
           })}

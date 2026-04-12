@@ -26,12 +26,24 @@ content:
         label: Description
         type: text
         required: true
+      - name: title_ja
+        label: Title (Japanese)
+        type: string
+        required: false
+      - name: description_ja
+        label: Description (Japanese)
+        type: text
+        required: false
       - name: image
         label: Image
         type: image
         required: false
       - name: imagePlaceholder
         label: Image placeholder (no image)
+        type: string
+        required: false
+      - name: imagePlaceholder_ja
+        label: Image placeholder (Japanese)
         type: string
         required: false
       - name: order
@@ -58,6 +70,10 @@ content:
         label: Name
         type: string
         required: true
+      - name: name_ja
+        label: Name (Japanese)
+        type: string
+        required: false
       - name: logo
         label: Logo
         type: image
@@ -104,10 +120,18 @@ content:
         label: Title
         type: string
         required: true
+      - name: title_ja
+        label: Title (Japanese)
+        type: string
+        required: false
       - name: summary
         label: Summary
         type: text
         required: true
+      - name: summary_ja
+        label: Summary (Japanese)
+        type: text
+        required: false
       - name: order
         label: Sort order (within year)
         type: number

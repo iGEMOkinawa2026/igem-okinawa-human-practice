@@ -37,6 +37,7 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: clip;
 }
 
 body {
@@ -45,6 +46,7 @@ body {
     background-color: var(--color-bg-base);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -168,6 +170,7 @@ ul {
     max-width: var(--container-max-width);
     margin: 0 auto;
     padding: 1rem 1.5rem;
+    position: relative;
 }
 
 .logo a {
@@ -216,9 +219,17 @@ ul {
     color: var(--color-text-muted);
     font-weight: inherit;
     padding: 0.25rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
 }
 
 .lang-btn.active {
+    color: var(--color-primary);
+}
+
+a.lang-btn:hover {
     color: var(--color-primary);
 }
 
@@ -256,6 +267,7 @@ ul {
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
+    min-width: 0;
 }
 
 .badge {
@@ -271,14 +283,23 @@ ul {
     letter-spacing: 1px;
 }
 
+.badge--natural {
+    text-transform: none;
+    letter-spacing: 0.04em;
+}
+
 .hero-text h1 {
-    font-size: 4rem;
+    font-size: clamp(2rem, 1.35rem + 4.2vw, 4rem);
     margin-bottom: 1.5rem;
     letter-spacing: -1px;
 }
 
 .hero-text h1 strong {
     color: var(--color-primary);
+}
+
+.hero-text {
+    min-width: 0;
 }
 
 .hero-text p {
@@ -290,6 +311,7 @@ ul {
 
 .hero-actions {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
 }
 
@@ -310,6 +332,9 @@ ul {
     box-shadow: var(--shadow-md);
     position: relative;
     overflow: hidden;
+    padding: 0.75rem 1rem;
+    text-align: center;
+    overflow-wrap: anywhere;
 }
 
 /* Subtle bio grid pattern in image bg */
@@ -340,6 +365,7 @@ ul {
     grid-template-columns: 1fr 2fr;
     gap: 4rem;
     align-items: center;
+    min-width: 0;
 }
 
 .dna-graphic-placeholder {
@@ -354,6 +380,9 @@ ul {
     font-weight: bold;
     opacity: 0.9;
     box-shadow: var(--shadow-sm);
+    padding: 1rem;
+    text-align: center;
+    overflow-wrap: anywhere;
 }
 
 .intro-content h2 {
@@ -385,8 +414,20 @@ ul {
 
 .mission-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: 1fr;
     gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .mission-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1280px) {
+    .mission-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
 }
 
 .mission-card {
@@ -420,8 +461,20 @@ ul {
 /* Activities Grid */
 .activity-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: 1fr;
     gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .activity-cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1280px) {
+    .activity-cards {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
 }
 
 .card {
@@ -447,6 +500,9 @@ ul {
     justify-content: center;
     color: var(--color-text-muted);
     font-weight: 500;
+    padding: 0.75rem 1rem;
+    text-align: center;
+    overflow-wrap: anywhere;
 }
 
 .card-content {
@@ -485,7 +541,7 @@ ul {
 
 .support-content h2 {
     color: var(--color-white);
-    font-size: 3rem;
+    font-size: clamp(1.65rem, 1.1rem + 3.2vw, 3rem);
     margin-bottom: 1.5rem;
 }
 
@@ -508,10 +564,11 @@ ul {
     align-items: flex-start;
     gap: 2rem;
     background-color: var(--color-bg-base);
-    padding: 3rem;
+    padding: clamp(1.25rem, 0.75rem + 2vw, 3rem);
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-sm);
     border: 1px solid rgba(0,0,0,0.03);
+    max-width: 100%;
 }
 
 .archive-main {
@@ -622,10 +679,6 @@ ul {
         text-align: center;
     }
     
-    .hero-text h1 {
-        font-size: 3rem;
-    }
-    
     .hero-text p {
         margin: 0 auto 2.5rem;
     }
@@ -664,6 +717,7 @@ ul {
         flex-direction: column;
         padding: 2rem;
         box-shadow: var(--shadow-sm);
+        z-index: 200;
     }
     
     .main-nav.nav-open {
@@ -717,7 +771,8 @@ ul {
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    min-width: 120px;
+    min-width: 0;
+    max-width: 100%;
 }
 
 .sponsor-item img {

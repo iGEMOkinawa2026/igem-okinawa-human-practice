@@ -5,8 +5,11 @@ const activities = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
+    title_ja: z.string().optional(),
+    description_ja: z.string().optional(),
     image: z.string().optional(),
     imagePlaceholder: z.string().optional(),
+    imagePlaceholder_ja: z.string().optional(),
     order: z.number().default(0),
   }),
 });
@@ -15,6 +18,7 @@ const sponsors = defineCollection({
   type: 'content',
   schema: z.object({
     name: z.string(),
+    name_ja: z.string().optional(),
     logo: z.string().optional(),
     tier: z.enum(['gold', 'silver', 'bronze', 'partner']).default('partner'),
     order: z.number().default(0),
@@ -27,6 +31,8 @@ const archive = defineCollection({
     year: z.number(),
     title: z.string(),
     summary: z.string(),
+    title_ja: z.string().optional(),
+    summary_ja: z.string().optional(),
     order: z.number().default(0),
   }),
 });

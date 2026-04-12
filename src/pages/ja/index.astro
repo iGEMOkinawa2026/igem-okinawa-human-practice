@@ -2,26 +2,26 @@
 import { getCollection } from 'astro:content';
 import YAML from 'yaml';
 
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
-import Hero from '../components/Hero.astro';
-import About from '../components/About.astro';
-import Mission from '../components/Mission.astro';
-import Activities from '../components/Activities.astro';
-import Support from '../components/Support.astro';
-import ArchivePreview from '../components/ArchivePreview.astro';
-import Footer from '../components/Footer.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Hero from '../../components/Hero.astro';
+import About from '../../components/About.astro';
+import Mission from '../../components/Mission.astro';
+import Activities from '../../components/Activities.astro';
+import Support from '../../components/Support.astro';
+import ArchivePreview from '../../components/ArchivePreview.astro';
+import Footer from '../../components/Footer.astro';
 
-import { homeCopy } from '../data/homeCopy';
-import { withBase } from '../lib/paths';
+import { homeCopy } from '../../data/homeCopy';
+import { withBase } from '../../lib/paths';
 
-import socialRaw from '../data/social.yaml?raw';
+import socialRaw from '../../data/social.yaml?raw';
 
 const social = YAML.parse(socialRaw) as {
   links: { platform: string; url: string; shortLabel?: string }[];
 };
 
-const copy = homeCopy.en;
+const copy = homeCopy.ja;
 
 const activities = (await getCollection('activities')).sort(
   (a, b) => a.data.order - b.data.order,
@@ -35,14 +35,14 @@ const archiveEntries = (await getCollection('archive')).sort((a, b) => {
 });
 ---
 
-<BaseLayout title={copy.page.title} description={copy.page.description} lang="en">
+<BaseLayout title={copy.page.title} description={copy.page.description} lang="ja">
   <Header
     siteTitle={copy.header.siteTitle}
-    logoHref="#"
+    logoHref={withBase('ja/')}
     navItems={[...copy.header.nav]}
     enHref={withBase('')}
     jaHref={withBase('ja/')}
-    activeLang="en"
+    activeLang="ja"
     menuToggleLabel={copy.header.menuToggleLabel}
   />
 
@@ -74,14 +74,14 @@ const archiveEntries = (await getCollection('archive')).sort((a, b) => {
     />
 
     <Activities
-      locale="en"
+      locale="ja"
       sectionTitle={copy.activitiesSection.sectionTitle}
       subtitle={copy.activitiesSection.subtitle}
       activities={activities}
     />
 
     <Support
-      locale="en"
+      locale="ja"
       title={copy.support.title}
       body={copy.support.body}
       sponsorCtaHref={copy.support.sponsorCtaHref}
@@ -92,7 +92,7 @@ const archiveEntries = (await getCollection('archive')).sort((a, b) => {
     />
 
     <ArchivePreview
-      locale="en"
+      locale="ja"
       title={copy.archive.title}
       body={copy.archive.body}
       archiveButtonLabel={copy.archive.archiveButtonLabel}

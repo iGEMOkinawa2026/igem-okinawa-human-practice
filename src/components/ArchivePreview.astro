@@ -1,7 +1,9 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import type { SiteLocale } from '../data/homeCopy';
 
 interface Props {
+  locale: SiteLocale;
   title: string;
   body: string;
   archiveButtonLabel: string;
@@ -9,7 +11,17 @@ interface Props {
   entries: CollectionEntry<'archive'>[];
 }
 
-const { title, body, archiveButtonLabel, archiveHref, entries } = Astro.props;
+const { locale, title, body, archiveButtonLabel, archiveHref, entries } = Astro.props;
+
+function entryTitle(e: CollectionEntry<'archive'>) {
+  if (locale === 'ja' && e.data.title_ja) return e.data.title_ja;
+  return e.data.title;
+}
+
+function entrySummary(e: CollectionEntry<'archive'>) {
+  if (locale === 'ja' && e.data.summary_ja) return e.data.summary_ja;
+  return e.data.summary;
+}
 ---
 
 <section id="archive" class="archive-preview section-alt">
@@ -25,8 +37,8 @@ const { title, body, archiveButtonLabel, archiveHref, entries } = Astro.props;
             {entries.map((e) => (
               <article class="archive-entry">
                 <div class="archive-entry-year">{e.data.year}</div>
-                <h3>{e.data.title}</h3>
-                <p class="archive-entry-summary">{e.data.summary}</p>
+                <h3>{entryTitle(e)}</h3>
+                <p class="archive-entry-summary">{entrySummary(e)}</p>
               </article>
             ))}
           </div>

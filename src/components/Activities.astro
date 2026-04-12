@@ -1,20 +1,37 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import type { SiteLocale } from '../data/homeCopy';
 import { withBase } from '../lib/paths';
 
 interface Props {
+  locale: SiteLocale;
   sectionTitle: string;
   subtitle: string;
   activities: CollectionEntry<'activities'>[];
 }
 
-const { sectionTitle, subtitle, activities } = Astro.props;
+const { locale, sectionTitle, subtitle, activities } = Astro.props;
 
 function imageSrc(image?: string) {
   if (!image) return null;
   if (image.startsWith('http://') || image.startsWith('https://')) return image;
   const path = image.startsWith('/') ? image.slice(1) : image;
   return withBase(path);
+}
+
+function titleFor(entry: CollectionEntry<'activities'>) {
+  if (locale === 'ja' && entry.data.title_ja) return entry.data.title_ja;
+  return entry.data.title;
+}
+
+function descriptionFor(entry: CollectionEntry<'activities'>) {
+  if (locale === 'ja' && entry.data.description_ja) return entry.data.description_ja;
+  return entry.data.description;
+}
+
+function placeholderFor(entry: CollectionEntry<'activities'>) {
+  if (locale === 'ja' && entry.data.imagePlaceholder_ja) return entry.data.imagePlaceholder_ja;
+  return entry.data.imagePlaceholder ?? '[ Project Image ]';
 }
 ---
 
@@ -28,7 +45,7 @@ function imageSrc(image?: string) {
       {
         activities.map((item) => {
           const img = imageSrc(item.data.image);
-          const placeholder = item.data.imagePlaceholder ?? '[ Project Image ]';
+          const placeholder = placeholderFor(item);
           return (
             <article class="card">
               {img ? (
@@ -39,8 +56,8 @@ function imageSrc(image?: string) {
                 <div class="card-img-placeholder">{placeholder}</div>
               )}
               <div class="card-content">
-                <h3>{item.data.title}</h3>
-                <p>{item.data.description}</p>
+                <h3>{titleFor(item)}</h3>
+                <p>{descriptionFor(item)}</p>
               </div>
             </article>
           );

@@ -8,16 +8,24 @@ interface Props {
   siteTitle: string;
   logoHref: string;
   navItems: NavItem[];
+  enHref: string;
+  jaHref: string;
+  activeLang: 'en' | 'ja';
   langEnLabel?: string;
   langJpLabel?: string;
+  menuToggleLabel?: string;
 }
 
 const {
   siteTitle,
   logoHref,
   navItems,
+  enHref,
+  jaHref,
+  activeLang,
   langEnLabel = 'EN',
   langJpLabel = 'JP',
+  menuToggleLabel = 'Toggle navigation',
 } = Astro.props;
 ---
 
@@ -32,7 +40,7 @@ const {
       class="mobile-menu-toggle"
       type="button"
       aria-expanded="false"
-      aria-label="Toggle navigation"
+      aria-label={menuToggleLabel}
     >
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -50,9 +58,19 @@ const {
         ))}
       </ul>
       <div class="lang-switcher">
-        <button class="lang-btn active" type="button">{langEnLabel}</button>
+        <a
+          href={enHref}
+          class:list={['lang-btn', { active: activeLang === 'en' }]}
+          aria-current={activeLang === 'en' ? 'page' : undefined}
+          >{langEnLabel}</a
+        >
         <span class="lang-sep">/</span>
-        <button class="lang-btn" type="button">{langJpLabel}</button>
+        <a
+          href={jaHref}
+          class:list={['lang-btn', { active: activeLang === 'ja' }]}
+          aria-current={activeLang === 'ja' ? 'page' : undefined}
+          >{langJpLabel}</a
+        >
       </div>
     </nav>
   </div>
