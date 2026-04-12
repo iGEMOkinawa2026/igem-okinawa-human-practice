@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+  <style>
+    .mark {
+      font-family: "Outfit", system-ui, -apple-system, sans-serif;
+      font-weight: 800;
+      font-size: 17px;
+      fill: #094067;
+    }
+  </style>
+  <text class="mark" x="4" y="23">iO</text>
+</svg>

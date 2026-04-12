@@ -132,6 +132,14 @@ content:
         label: Summary (Japanese)
         type: text
         required: false
+      - name: wiki_url
+        label: Wiki URL
+        type: string
+        required: false
+      - name: universities
+        label: Universities
+        type: text
+        required: false
       - name: order
         label: Sort order (within year)
         type: number

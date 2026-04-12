@@ -33,6 +33,8 @@ const archive = defineCollection({
     summary: z.string(),
     title_ja: z.string().optional(),
     summary_ja: z.string().optional(),
+    wiki_url: z.string().optional(),
+    universities: z.string().optional(),
     order: z.number().default(0),
   }),
 });

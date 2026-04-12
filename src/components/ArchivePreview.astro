@@ -1,17 +1,22 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import type { SiteLocale } from '../data/homeCopy';
+import { withBase } from '../lib/paths';
 
 interface Props {
   locale: SiteLocale;
   title: string;
   body: string;
   archiveButtonLabel: string;
-  archiveHref: string;
   entries: CollectionEntry<'archive'>[];
 }
 
-const { locale, title, body, archiveButtonLabel, archiveHref, entries } = Astro.props;
+const { locale, title, body, archiveButtonLabel, entries } = Astro.props;
+
+const resolvedArchiveHref =
+  locale === 'ja' ? withBase('ja/archive/') : withBase('archive/');
+const resolvedArchiveLabel =
+  locale === 'ja' ? 'アーカイブを見る' : archiveButtonLabel;
 
 function entryTitle(e: CollectionEntry<'archive'>) {
   if (locale === 'ja' && e.data.title_ja) return e.data.title_ja;
@@ -46,7 +51,7 @@ function entrySummary(e: CollectionEntry<'archive'>) {
       }
     </div>
     <div class="archive-action">
-      <a href={archiveHref} class="btn btn-outline-dark">{archiveButtonLabel}</a>
+      <a href={resolvedArchiveHref} class="btn btn-outline-dark">{resolvedArchiveLabel}</a>
     </div>
   </div>
 </section>

@@ -1,46 +1,48 @@
 ---
 import { getCollection } from 'astro:content';
 
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { withBase } from '../../lib/paths';
-import { truncateSummary } from '../../lib/truncate';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { withBase } from '../../../lib/paths';
+import { truncateSummary } from '../../../lib/truncate';
 
 const entries = (await getCollection('archive')).sort((a, b) => {
   if (b.data.year !== a.data.year) return b.data.year - a.data.year;
   return a.data.order - b.data.order;
 });
 
-const pageTitle = 'Past Teams & Projects | iGEM Okinawa';
+const pageTitle = '過去のチーム・プロジェクト | iGEM沖縄';
 const pageDescription =
-  'Browse past iGEM Okinawa teams, projects, and competition history.';
+  'iGEM沖縄の過去のチーム、プロジェクト、大会への取り組みをご覧いただけます。';
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} lang="en">
+<BaseLayout title={pageTitle} description={pageDescription} lang="ja">
   <main class="section section-alt">
     <div class="container">
       <header class="archive-page-header">
-        <h1>Past Teams & Projects</h1>
-        <p class="subtitle">Every year, iGEM Okinawa takes on a new challenge.</p>
+        <h1>過去のチーム・プロジェクト</h1>
+        <p class="subtitle">毎年、iGEM Okinawaは新しい課題に挑みます。</p>
       </header>
 
       <p class="archive-page-back">
-        <a href={withBase('')} class="archive-back-link">← Back to Home</a>
+        <a href={withBase('ja/')} class="archive-back-link">← ホームに戻る</a>
       </p>
 
       <div class="archive-page-grid">
         {
           entries.map((entry) => {
+            const title = entry.data.title_ja ?? entry.data.title;
+            const summaryRaw = entry.data.summary_ja ?? entry.data.summary;
             const wiki = entry.data.wiki_url?.trim();
             const uni = entry.data.universities?.trim();
             return (
               <article class="card archive-card">
                 <div class="card-content">
                   <span class="archive-year-badge">{entry.data.year}</span>
-                  <h3>{entry.data.title}</h3>
-                  <p class="archive-card-summary">{truncateSummary(entry.data.summary)}</p>
+                  <h3>{title}</h3>
+                  <p class="archive-card-summary">{truncateSummary(summaryRaw)}</p>
                   {uni && (
                     <p class="archive-universities">
-                      <span class="archive-universities-label">Universities:</span>
+                      <span class="archive-universities-label">参加大学：</span>
                       {uni}
                     </p>
                   )}
@@ -52,7 +54,7 @@ const pageDescription =
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        Read Wiki
+                        Wikiを見る
                       </a>
                     </p>
                   )}

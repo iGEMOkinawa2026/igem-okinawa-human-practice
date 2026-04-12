@@ -96,7 +96,6 @@ const archiveEntries = (await getCollection('archive')).sort((a, b) => {
       title={copy.archive.title}
       body={copy.archive.body}
       archiveButtonLabel={copy.archive.archiveButtonLabel}
-      archiveHref={withBase('archive/')}
       entries={archiveEntries}
     />
   </main>
