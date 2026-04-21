@@ -1,8 +1,7 @@
 import { defineConfig } from 'astro/config';
 
-// GitHub Pages project site: https://minmal3.github.io/iGEM-Okinawa-Homepage/
+// GitHub Pages project site: https://github.com/iGEMOkinawa2026/igem-okinawa-human-practice.git
 export default defineConfig({
-  site: 'https://minmal3.github.io',
-  base: '/iGEM-Okinawa-Homepage/',
-  output: 'static',
+  site: 'https://iGEMOkinawa2026.github.io',
+  base: '/igem-okinawa-human-practice/',
 });
