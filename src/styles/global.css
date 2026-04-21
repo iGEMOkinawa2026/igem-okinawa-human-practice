@@ -298,6 +298,11 @@ a.lang-btn:hover {
     color: var(--color-primary);
 }
 
+.hero-heading-suffix--small {
+    font-size: 0.68em;
+    margin-left: 0.12em;
+}
+
 .hero-text {
     min-width: 0;
 }
@@ -515,6 +520,56 @@ a.lang-btn:hover {
     color: var(--color-primary);
 }
 
+.activity-date {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-secondary);
+    letter-spacing: 0.02em;
+    margin-bottom: 0.5rem;
+}
+
+.activity-more {
+    margin-top: 1rem;
+    border: none;
+    background: transparent;
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    padding: 0;
+}
+
+.activity-more:hover {
+    color: var(--color-secondary);
+}
+
+.activity-modal {
+    width: min(560px, calc(100vw - 2rem));
+    border: none;
+    border-radius: var(--border-radius-md);
+    padding: 1.4rem 1.4rem 1.2rem;
+    box-shadow: var(--shadow-hover);
+}
+
+.activity-modal::backdrop {
+    background: rgba(15, 23, 42, 0.55);
+}
+
+.activity-modal-head h3 {
+    color: var(--color-primary);
+    margin-bottom: 0.6rem;
+}
+
+.activity-modal p {
+    color: var(--color-text-main);
+    margin-bottom: 1.2rem;
+}
+
+.activity-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
 /* Sponsor / Support Section */
 .support {
     position: relative;
@@ -710,6 +765,7 @@ a.lang-btn:hover {
 .footer-brand p {
     color: #94A3B8;
     max-width: 300px;
+    white-space: pre-line;
 }
 
 .footer-links h4, .footer-social h4 {

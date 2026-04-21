@@ -6,6 +6,7 @@ interface Props {
   headingPrefix: string;
   headingStrong: string;
   headingSuffix: string;
+  headingSuffixSmall?: boolean;
   lede: string;
   primaryCtaLabel: string;
   primaryCtaHref: string;
@@ -19,6 +20,7 @@ const {
   headingPrefix,
   headingStrong,
   headingSuffix,
+  headingSuffixSmall = false,
   lede,
   primaryCtaLabel,
   primaryCtaHref,
@@ -35,7 +37,9 @@ const badgeClass = badgeNatural ? 'badge badge--natural' : 'badge';
   <div class="container hero-content">
     <div class="hero-text">
       <span class={badgeClass}>{badgeText}</span>
-      <h1>{headingPrefix}<strong>{headingStrong}</strong>{headingSuffix}</h1>
+      <h1>
+        {headingPrefix}<strong>{headingStrong}</strong><span class:list={['hero-heading-suffix', { 'hero-heading-suffix--small': headingSuffixSmall }]}>{headingSuffix}</span>
+      </h1>
       <p>{lede}</p>
       <div class="hero-actions">
         <a href={primaryCtaHref} class="btn btn-primary">{primaryCtaLabel}</a>

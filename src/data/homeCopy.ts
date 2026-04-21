@@ -23,6 +23,7 @@ export const homeCopy = {
       headingPrefix: 'The ',
       headingStrong: '2026',
       headingSuffix: ' Team',
+      headingSuffixSmall: false,
       lede: 'We are iGEM Okinawa. Fusing the incredible biodiversity of the Ryukyu Islands with cutting-edge synthetic biology to solve global challenges.',
       primaryCtaLabel: 'Support Our Research',
       primaryCtaHref: '#support',
@@ -116,6 +117,7 @@ export const homeCopy = {
       headingPrefix: '',
       headingStrong: '2026',
       headingSuffix: '年チーム',
+      headingSuffixSmall: true,
       lede: '私たちはiGEM Okinawaです。琉球列島の豊かな生物多様性と最先端の合成生物学を融合し、地球規模の課題解決に挑みます。',
       primaryCtaLabel: '活動を支援する',
       primaryCtaHref: '#support',
@@ -127,7 +129,7 @@ export const homeCopy = {
       visualPlaceholder: '[ サイエンス / バイオ ビジュアル ]',
       title: 'iGEM Okinawaとは？',
       paragraphs: [
-        'iGEM沖縄は、さまざまな専門分野の学生が集い、合成生物学を社会実装へつなげるという共通の目標のもとに活動するコミュニティです。',
+        'iGEM Okinawaは、さまざまな専門分野の学生が集い、合成生物学を社会実装へつなげるという共通の目標のもとに活動するコミュニティです。',
         '沖縄という島の環境から出発し、地域に根ざした知恵と世界的な科学イノベーションの橋渡しを目指します。学際的なアプローチで、環境保全から新たなバイオ応用まで幅広いテーマに取り組みます。',
       ] as [string, string],
     },
@@ -171,7 +173,7 @@ export const homeCopy = {
     },
     footer: {
       brandTitle: 'iGEM Okinawa',
-      brandTagline: '琉球から世界へ。合成生物学で未来を描く。',
+      brandTagline: '琉球から世界へ。\n合成生物学で未来を描く。',
       exploreHeading: 'サイトマップ',
       exploreLinks: [
         { label: '概要', href: '#about' },

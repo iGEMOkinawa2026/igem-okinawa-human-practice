@@ -29,6 +29,16 @@ function descriptionFor(entry: CollectionEntry<'activities'>) {
   return entry.data.description;
 }
 
+function dateFor(entry: CollectionEntry<'activities'>) {
+  if (locale === 'ja' && entry.data.date_ja) return entry.data.date_ja;
+  return entry.data.date;
+}
+
+function detailFor(entry: CollectionEntry<'activities'>) {
+  if (locale === 'ja' && entry.data.detail_ja) return entry.data.detail_ja;
+  return entry.data.detail ?? descriptionFor(entry);
+}
+
 function placeholderFor(entry: CollectionEntry<'activities'>) {
   if (locale === 'ja' && entry.data.imagePlaceholder_ja) return entry.data.imagePlaceholder_ja;
   return entry.data.imagePlaceholder ?? '[ Project Image ]';
@@ -43,11 +53,16 @@ function placeholderFor(entry: CollectionEntry<'activities'>) {
     </div>
     <div class="activity-cards">
       {
-        activities.map((item) => {
+        activities.map((item, idx) => {
           const img = imageSrc(item.data.image);
           const placeholder = placeholderFor(item);
+          const title = titleFor(item);
+          const description = descriptionFor(item);
+          const dateLabel = dateFor(item);
+          const detail = detailFor(item);
+          const dialogId = `activity-modal-${locale}-${idx}`;
           return (
-            <article class="card">
+            <article class="card activity-card">
               {img ? (
                 <div class="card-image">
                   <img src={img} alt="" loading="lazy" />
@@ -56,9 +71,26 @@ function placeholderFor(entry: CollectionEntry<'activities'>) {
                 <div class="card-img-placeholder">{placeholder}</div>
               )}
               <div class="card-content">
-                <h3>{titleFor(item)}</h3>
-                <p>{descriptionFor(item)}</p>
+                {dateLabel && <p class="activity-date">{dateLabel}</p>}
+                <h3>{title}</h3>
+                <p>{description}</p>
+                <button class="activity-more" type="button" data-activity-open={dialogId}>
+                  {locale === 'ja' ? '詳細を見る' : 'View details'}
+                </button>
               </div>
+
+              <dialog id={dialogId} class="activity-modal">
+                <div class="activity-modal-head">
+                  {dateLabel && <p class="activity-date">{dateLabel}</p>}
+                  <h3>{title}</h3>
+                </div>
+                <p>{detail}</p>
+                <form method="dialog" class="activity-modal-actions">
+                  <button type="submit" class="btn btn-outline-dark">
+                    {locale === 'ja' ? '閉じる' : 'Close'}
+                  </button>
+                </form>
+              </dialog>
             </article>
           );
         })
@@ -66,3 +98,18 @@ function placeholderFor(entry: CollectionEntry<'activities'>) {
     </div>
   </div>
 </section>
+
+<script is:inline>
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+    const trigger = target.closest('[data-activity-open]');
+    if (!(trigger instanceof HTMLElement)) return;
+    const id = trigger.getAttribute('data-activity-open');
+    if (!id) return;
+    const dialog = document.getElementById(id);
+    if (dialog instanceof HTMLDialogElement) {
+      dialog.showModal();
+    }
+  });
+</script>
