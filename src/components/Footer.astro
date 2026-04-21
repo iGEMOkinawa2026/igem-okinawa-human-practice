@@ -37,69 +37,6 @@ const {
   termsLabel,
   socialLinks,
 } = Astro.props;
-
-function iconFor(platform: string) {
-  const key = platform.trim().toLowerCase();
-
-  if (key === 'instagram') {
-    return (
-      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
-        <rect
-          x="3"
-          y="3"
-          width="18"
-          height="18"
-          rx="5"
-          ry="5"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        />
-        <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2" />
-        <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
-      </svg>
-    );
-  }
-
-  if (key === 'linkedin') {
-    return (
-      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
-        <rect
-          x="3"
-          y="3"
-          width="18"
-          height="18"
-          rx="2"
-          ry="2"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        />
-        <line x1="8" y1="10" x2="8" y2="16.5" stroke="currentColor" stroke-width="2" />
-        <circle cx="8" cy="7.5" r="1.2" fill="currentColor" />
-        <path d="M12 16.5v-3.7c0-1.8 3-1.9 3 0v3.7" fill="none" stroke="currentColor" stroke-width="2" />
-      </svg>
-    );
-  }
-
-  if (key === 'github') {
-    return (
-      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
-        <path
-          d="M12 3.2a8.8 8.8 0 0 0-2.8 17.1c.4.1.6-.2.6-.5v-2c-2.4.5-2.9-1-2.9-1-.4-1-.9-1.2-.9-1.2-.8-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.8 1.3 2 .9 2.5.7.1-.6.3-.9.5-1.2-1.9-.2-3.8-.9-3.8-4 0-.9.3-1.7.8-2.3-.1-.2-.4-1.1.1-2.2 0 0 .7-.2 2.3.8a8.2 8.2 0 0 1 4.2 0c1.6-1 2.3-.8 2.3-.8.5 1.1.2 2 .1 2.2.5.6.8 1.4.8 2.3 0 3.1-2 3.8-3.8 4 .3.2.5.7.5 1.4v2.1c0 .3.2.6.6.5A8.8 8.8 0 0 0 12 3.2z"
-          fill="currentColor"
-        />
-      </svg>
-    );
-  }
-
-  // Default to X/Twitter icon for both "x" and "twitter".
-  return (
-    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
-      <path d="M4 4h3.8l4.1 5.8L17 4h3l-6.7 7.7L20 20h-3.8l-4.5-6.3L6.1 20H3l7.2-8.3z" fill="currentColor" />
-    </svg>
-  );
-}
 ---
 
 <footer class="site-footer">
@@ -121,11 +58,38 @@ function iconFor(platform: string) {
     <div class="footer-social">
       <h4>{connectHeading}</h4>
       <div class="social-icons">
-        {socialLinks.map((link) => (
-          <a href={link.url} aria-label={link.platform} title={link.platform}>
-            {iconFor(link.platform)}
-          </a>
-        ))}
+        {socialLinks.map((link) => {
+          const key = link.platform.trim().toLowerCase();
+          return (
+            <a href={link.url} aria-label={link.platform} title={link.platform}>
+              {key === 'instagram' && (
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+                  <rect x="3" y="3" width="18" height="18" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2" />
+                  <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2" />
+                  <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
+                </svg>
+              )}
+              {key === 'linkedin' && (
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2" />
+                  <line x1="8" y1="10" x2="8" y2="16.5" stroke="currentColor" stroke-width="2" />
+                  <circle cx="8" cy="7.5" r="1.2" fill="currentColor" />
+                  <path d="M12 16.5v-3.7c0-1.8 3-1.9 3 0v3.7" fill="none" stroke="currentColor" stroke-width="2" />
+                </svg>
+              )}
+              {key === 'github' && (
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+                  <path d="M12 3.2a8.8 8.8 0 0 0-2.8 17.1c.4.1.6-.2.6-.5v-2c-2.4.5-2.9-1-2.9-1-.4-1-.9-1.2-.9-1.2-.8-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.8 1.3 2 .9 2.5.7.1-.6.3-.9.5-1.2-1.9-.2-3.8-.9-3.8-4 0-.9.3-1.7.8-2.3-.1-.2-.4-1.1.1-2.2 0 0 .7-.2 2.3.8a8.2 8.2 0 0 1 4.2 0c1.6-1 2.3-.8 2.3-.8.5 1.1.2 2 .1 2.2.5.6.8 1.4.8 2.3 0 3.1-2 3.8-3.8 4 .3.2.5.7.5 1.4v2.1c0 .3.2.6.6.5A8.8 8.8 0 0 0 12 3.2z" fill="currentColor" />
+                </svg>
+              )}
+              {key !== 'instagram' && key !== 'linkedin' && key !== 'github' && (
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+                  <path d="M4 4h3.8l4.1 5.8L17 4h3l-6.7 7.7L20 20h-3.8l-4.5-6.3L6.1 20H3l7.2-8.3z" fill="currentColor" />
+                </svg>
+              )}
+            </a>
+          );
+        })}
       </div>
     </div>
   </div>
