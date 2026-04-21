@@ -1,10 +1,10 @@
 # Social profiles (platform + url). Optional shortLabel overrides the default abbreviation.
 links:
-  - platform: Twitter
-    url: "#"
+  - platform: facebook
+    url: "https://www.facebook.com/share/18Hft5PoUL/?mibextid=wwXIfr"
   - platform: Instagram
-    url: "#"
+    url: "https://www.instagram.com/igem.okinawa?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
   - platform: LinkedIn
-    url: "#"
-  - platform: GitHub
-    url: "#"
+    url: "https://www.linkedin.com/company/igemokinawa/"
+  - platform: X
+    url: "https://x.com/igemokinawa?s=21&t=06Ex3A224HfSZqvrNkNQ0Q"

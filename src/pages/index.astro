@@ -38,7 +38,7 @@ const archiveEntries = (await getCollection('archive')).sort((a, b) => {
 <BaseLayout title={copy.page.title} description={copy.page.description} lang="en">
   <Header
     siteTitle={copy.header.siteTitle}
-    logoHref="#"
+    logoHref={withBase('')}
     navItems={[...copy.header.nav]}
     enHref={withBase('')}
     jaHref={withBase('ja/')}

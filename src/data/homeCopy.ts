@@ -96,12 +96,12 @@ export const homeCopy = {
   },
   ja: {
     page: {
-      title: 'iGEM沖縄 | 2026チーム',
+      title: 'iGEM Okinawa | 2026team',
       description:
-        'iGEM沖縄は、沖縄から世界へ合成生物学の挑戦を発信する学生主導の研究チームです。現在は2026年チームを紹介しています。',
+        'iGEM Okinawaは、沖縄から世界へ合成生物学の挑戦を発信する学生主導の研究チームです。現在は2026年チームを紹介しています。',
     },
     header: {
-      siteTitle: 'iGEM沖縄',
+      siteTitle: 'iGEM Okinawa',
       menuToggleLabel: 'メニューを開閉',
       nav: [
         { label: '概要', href: '#about' },
@@ -116,8 +116,8 @@ export const homeCopy = {
       headingPrefix: '',
       headingStrong: '2026',
       headingSuffix: '年チーム',
-      lede: '私たちはiGEM沖縄です。琉球列島の豊かな生物多様性と最先端の合成生物学を融合し、地球規模の課題解決に挑みます。',
-      primaryCtaLabel: '研究活動を支援する',
+      lede: '私たちはiGEM Okinawaです。琉球列島の豊かな生物多様性と最先端の合成生物学を融合し、地球規模の課題解決に挑みます。',
+      primaryCtaLabel: '活動を支援する',
       primaryCtaHref: '#support',
       secondaryCtaLabel: '取り組みを見る',
       secondaryCtaHref: '#activities',
@@ -125,7 +125,7 @@ export const homeCopy = {
     },
     about: {
       visualPlaceholder: '[ サイエンス / バイオ ビジュアル ]',
-      title: 'iGEM沖縄とは？',
+      title: 'iGEM Okinawaとは？',
       paragraphs: [
         'iGEM沖縄は、さまざまな専門分野の学生が集い、合成生物学を社会実装へつなげるという共通の目標のもとに活動するコミュニティです。',
         '沖縄という島の環境から出発し、地域に根ざした知恵と世界的な科学イノベーションの橋渡しを目指します。学際的なアプローチで、環境保全から新たなバイオ応用まで幅広いテーマに取り組みます。',
@@ -158,8 +158,8 @@ export const homeCopy = {
     },
     support: {
       title: '次世代の科学者を支える',
-      body: 'iGEM沖縄の挑戦は、スポンサーやコミュニティの皆さまのご支援によって実現しています。ご支援は、実験設備、プロジェクト開発、国際大会への参加などに直結します。',
-      sponsorCtaHref: 'mailto:contact@igem-okinawa.jp',
+      body: 'iGEM Okinawaの挑戦は、スポンサーやコミュニティの皆さまのご支援によって実現しています。ご支援は、実験設備、プロジェクト開発、国際大会への参加などに直結します。',
+      sponsorCtaHref: 'mailto:igem@oist.jp',
       sponsorCtaLabel: 'スポンサーになる',
       deckHref: '#',
       deckLabel: 'スポンサー資料を見る',
@@ -170,7 +170,7 @@ export const homeCopy = {
       archiveButtonLabel: 'アーカイブへ',
     },
     footer: {
-      brandTitle: 'iGEM沖縄',
+      brandTitle: 'iGEM Okinawa',
       brandTagline: '琉球から世界へ。合成生物学で未来を描く。',
       exploreHeading: 'サイトマップ',
       exploreLinks: [
@@ -180,7 +180,7 @@ export const homeCopy = {
         { label: 'アーカイブ', href: '#archive' },
       ],
       connectHeading: 'つながる',
-      copyrightLine: '© 2026 iGEM沖縄',
+      copyrightLine: '© 2026 iGEM Okinawa',
       privacyHref: '#',
       privacyLabel: 'プライバシーポリシー',
       termsHref: '#',
