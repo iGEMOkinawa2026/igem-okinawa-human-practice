@@ -1,0 +1,30 @@
+---
+/**
+ * Human Practice Sub-page (EN) — dynamic route
+ * Renders each HP section from Markdown content
+ */
+import { getCollection } from 'astro:content';
+import HumanPracticeLayout from '../../layouts/HumanPracticeLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('human-practice');
+  return entries.map((entry) => ({
+    params: { slug: entry.data.sectionSlug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<HumanPracticeLayout
+  title={`${entry.data.title} — Human Practice | iGEM Okinawa`}
+  description={entry.data.description || `${entry.data.title} section of our Human Practice work.`}
+  locale="en"
+  activeSlug={entry.data.sectionSlug}
+  pageTitle={entry.data.title}
+  pageSubtitle={entry.data.description}
+>
+  <Content />
+</HumanPracticeLayout>

@@ -1,0 +1,63 @@
+---
+/**
+ * HumanPracticeLayout — extends PageLayout with section side-navigation.
+ */
+import PageLayout from './PageLayout.astro';
+import SectionNav from '../components/SectionNav.astro';
+import PageHero from '../components/PageHero.astro';
+
+import type { SiteLocale } from '../data/siteCopy';
+import { getHpNav } from '../data/navigation';
+import { withBase } from '../lib/paths';
+
+interface Props {
+  title: string;
+  description: string;
+  locale?: SiteLocale;
+  /** Current sub-section slug (e.g. 'overview') — used for active highlight */
+  activeSlug?: string;
+  /** Page heading displayed in the PageHero */
+  pageTitle: string;
+  /** Optional subtitle for the PageHero */
+  pageSubtitle?: string;
+}
+
+const {
+  title,
+  description,
+  locale = 'en',
+  activeSlug,
+  pageTitle,
+  pageSubtitle,
+} = Astro.props;
+
+const hpNav = getHpNav(locale);
+const prefix = locale === 'ja' ? 'ja/' : '';
+
+const breadcrumbs = [
+  { label: locale === 'ja' ? 'ホーム' : 'Home', href: withBase(prefix) },
+  {
+    label: locale === 'ja' ? 'ヒューマンプラクティス' : 'Human Practice',
+    href: withBase(`${prefix}human-practice/`),
+  },
+];
+---
+
+<PageLayout title={title} description={description} locale={locale}>
+  <PageHero
+    title={pageTitle}
+    subtitle={pageSubtitle}
+    breadcrumbs={breadcrumbs}
+  />
+
+  <div class="hp-layout section">
+    <div class="container hp-layout-inner">
+      <aside class="hp-sidebar">
+        <SectionNav items={hpNav} activeSlug={activeSlug} />
+      </aside>
+      <article class="hp-content prose">
+        <slot />
+      </article>
+    </div>
+  </div>
+</PageLayout>

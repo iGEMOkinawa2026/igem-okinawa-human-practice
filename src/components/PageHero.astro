@@ -1,0 +1,39 @@
+---
+/**
+ * PageHero — compact hero banner for inner pages.
+ * Includes title, optional subtitle, and breadcrumb navigation.
+ */
+interface BreadcrumbItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  breadcrumbs?: BreadcrumbItem[];
+}
+
+const { title, subtitle, breadcrumbs } = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="page-hero-bg-accent"></div>
+  <div class="container page-hero-content">
+    {breadcrumbs && breadcrumbs.length > 0 && (
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <ol>
+          {breadcrumbs.map((item, idx) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+              {idx < breadcrumbs.length - 1 && <span class="breadcrumb-sep">/</span>}
+            </li>
+          ))}
+          <li aria-current="page"><span>{title}</span></li>
+        </ol>
+      </nav>
+    )}
+    <h1>{title}</h1>
+    {subtitle && <p class="page-hero-subtitle">{subtitle}</p>}
+  </div>
+</section>

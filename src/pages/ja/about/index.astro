@@ -1,0 +1,79 @@
+---
+/**
+ * About Page (JA)
+ */
+import PageLayout from '../../../layouts/PageLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import { withBase } from '../../../lib/paths';
+---
+
+<PageLayout
+  title="チーム紹介 | iGEM Okinawa"
+  description="iGEM Okinawaについて — チーム、ミッション、歩み。"
+  locale="ja"
+>
+  <PageHero
+    title="チーム紹介"
+    subtitle="私たちが存在する理由と、科学への想い。"
+    breadcrumbs={[{ label: 'ホーム', href: withBase('ja/') }]}
+  />
+
+  <section class="section">
+    <div class="container about-page-content">
+      <div class="about-section">
+        <h2>iGEM Okinawaとは？</h2>
+        <p>
+          iGEM Okinawaは、さまざまな専門分野の学生が集い、合成生物学を社会実装へつなげるという共通の目標のもとに活動するコミュニティです。
+        </p>
+        <p>
+          沖縄という島の環境から出発し、地域に根ざした知恵と世界的な科学イノベーションの橋渡しを目指します。
+          学際的なアプローチで、環境保全から新たなバイオ応用まで幅広いテーマに取り組みます。
+        </p>
+      </div>
+
+      <div class="about-section">
+        <h2>ミッションと原点</h2>
+        <div class="mission-grid">
+          <div class="mission-card">
+            <div class="icon">🌴</div>
+            <h3>沖縄に根ざす</h3>
+            <p>地域の生態系から着想を得て、独自の生物資源を活かしながら、ローカルな課題にグローバルな視点で応えます。</p>
+          </div>
+          <div class="mission-card">
+            <div class="icon">🔬</div>
+            <h3>科学重視</h3>
+            <p>厳密な研究、丁寧な実験、データに基づく洞察を、すべてのプロジェクトの中心に置きます。</p>
+          </div>
+          <div class="mission-card">
+            <div class="icon">🌍</div>
+            <h3>世界へ発信</h3>
+            <p>ジャイアント・ジャンボリーで日本のイノベーションを示し、世界中の仲間と協働・競争しながら成長します。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-section">
+        <h2>チームメンバー</h2>
+        <p class="section-subtitle">2026年チームは、複数の大学・分野にまたがる学生で構成されています。</p>
+
+        <div class="members-list">
+          <div class="member-item">
+            <span class="member-name">メンバー名</span>
+            <span class="member-role">役割 / 大学</span>
+          </div>
+          <div class="member-item">
+            <span class="member-name">メンバー名</span>
+            <span class="member-role">役割 / 大学</span>
+          </div>
+          <div class="member-item">
+            <span class="member-name">メンバー名</span>
+            <span class="member-role">役割 / 大学</span>
+          </div>
+        </div>
+        <p class="text-muted" style="margin-top: 1.5rem; font-size: 0.9rem;">
+          メンバーリストはチームの成長に合わせて更新されます。
+        </p>
+      </div>
+    </div>
+  </section>
+</PageLayout>

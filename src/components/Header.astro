@@ -2,6 +2,7 @@
 interface NavItem {
   label: string;
   href: string;
+  children?: NavItem[];
 }
 
 interface Props {
@@ -52,8 +53,17 @@ const {
     <nav id="main-nav" class="main-nav" aria-label="Primary">
       <ul>
         {navItems.map((item) => (
-          <li>
+          <li class:list={[{ 'has-dropdown': item.children && item.children.length > 0 }]}>
             <a href={item.href}>{item.label}</a>
+            {item.children && item.children.length > 0 && (
+              <ul class="dropdown-menu">
+                {item.children.map((child) => (
+                  <li>
+                    <a href={child.href}>{child.label}</a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         ))}
       </ul>

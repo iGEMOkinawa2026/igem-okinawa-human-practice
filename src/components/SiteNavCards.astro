@@ -1,0 +1,37 @@
+---
+/**
+ * SiteNavCards — card-based navigation for the landing page.
+ * Each card links to a main section of the site.
+ */
+import { withBase } from '../lib/paths';
+
+interface CardItem {
+  icon: string;
+  title: string;
+  body: string;
+  href: string;
+}
+
+interface Props {
+  cards: CardItem[];
+  locale?: 'en' | 'ja';
+}
+
+const { cards, locale = 'en' } = Astro.props;
+const prefix = locale === 'ja' ? 'ja/' : '';
+---
+
+<section class="site-nav-cards section">
+  <div class="container">
+    <div class="nav-cards-grid">
+      {cards.map((card) => (
+        <a href={withBase(`${prefix}${card.href}`)} class="nav-card">
+          <div class="nav-card-icon">{card.icon}</div>
+          <h3>{card.title}</h3>
+          <p>{card.body}</p>
+          <span class="nav-card-arrow">→</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

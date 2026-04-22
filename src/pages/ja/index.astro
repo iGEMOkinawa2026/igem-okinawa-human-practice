@@ -1,19 +1,20 @@
 ---
-import { getCollection } from 'astro:content';
+/**
+ * Landing Page (JA)
+ */
 import YAML from 'yaml';
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Hero from '../../components/Hero.astro';
-import About from '../../components/About.astro';
-import Mission from '../../components/Mission.astro';
-import Activities from '../../components/Activities.astro';
-import Support from '../../components/Support.astro';
+import SiteNavCards from '../../components/SiteNavCards.astro';
 import ArchivePreview from '../../components/ArchivePreview.astro';
 import Footer from '../../components/Footer.astro';
 
-import { homeCopy } from '../../data/homeCopy';
+import { siteCopy } from '../../data/siteCopy';
+import { getMainNav } from '../../data/navigation';
 import { withBase } from '../../lib/paths';
+import { getCollection } from 'astro:content';
 
 import socialRaw from '../../data/social.yaml?raw';
 
@@ -21,25 +22,25 @@ const social = YAML.parse(socialRaw) as {
   links: { platform: string; url: string; shortLabel?: string }[];
 };
 
-const copy = homeCopy.ja;
+const copy = siteCopy.ja;
+const navItems = getMainNav('ja');
 
-const activities = (await getCollection('activities')).sort(
-  (a, b) => a.data.order - b.data.order,
-);
-const sponsors = (await getCollection('sponsors')).sort(
-  (a, b) => a.data.order - b.data.order,
-);
 const archiveEntries = (await getCollection('archive')).sort((a, b) => {
   if (b.data.year !== a.data.year) return b.data.year - a.data.year;
   return a.data.order - b.data.order;
 });
+
+const footerLinks = navItems.map((item) => ({
+  label: item.label,
+  href: item.href,
+}));
 ---
 
 <BaseLayout title={copy.page.title} description={copy.page.description} lang="ja">
   <Header
     siteTitle={copy.header.siteTitle}
     logoHref={withBase('ja/')}
-    navItems={[...copy.header.nav]}
+    navItems={navItems}
     enHref={withBase('')}
     jaHref={withBase('ja/')}
     activeLang="ja"
@@ -56,47 +57,19 @@ const archiveEntries = (await getCollection('archive')).sort((a, b) => {
       headingSuffixSmall={copy.hero.headingSuffixSmall}
       lede={copy.hero.lede}
       primaryCtaLabel={copy.hero.primaryCtaLabel}
-      primaryCtaHref={copy.hero.primaryCtaHref}
+      primaryCtaHref={withBase(`ja/${copy.hero.primaryCtaHref}`)}
       secondaryCtaLabel={copy.hero.secondaryCtaLabel}
-      secondaryCtaHref={copy.hero.secondaryCtaHref}
+      secondaryCtaHref={withBase(`ja/${copy.hero.secondaryCtaHref}`)}
       imagePlaceholderText={copy.hero.imagePlaceholderText}
     />
 
-    <About
-      visualPlaceholder={copy.about.visualPlaceholder}
-      title={copy.about.title}
-      paragraphs={[...copy.about.paragraphs]}
-    />
-
-    <Mission
-      sectionTitle={copy.mission.sectionTitle}
-      subtitle={copy.mission.subtitle}
-      cards={[...copy.mission.cards]}
-    />
-
-    <Activities
-      locale="ja"
-      sectionTitle={copy.activitiesSection.sectionTitle}
-      subtitle={copy.activitiesSection.subtitle}
-      activities={activities}
-    />
-
-    <Support
-      locale="ja"
-      title={copy.support.title}
-      body={copy.support.body}
-      sponsorCtaHref={copy.support.sponsorCtaHref}
-      sponsorCtaLabel={copy.support.sponsorCtaLabel}
-      deckHref={copy.support.deckHref}
-      deckLabel={copy.support.deckLabel}
-      sponsors={sponsors}
-    />
+    <SiteNavCards cards={[...copy.navCards]} locale="ja" />
 
     <ArchivePreview
       locale="ja"
-      title={copy.archive.title}
-      body={copy.archive.body}
-      archiveButtonLabel={copy.archive.archiveButtonLabel}
+      title="これまでの活動とチーム"
+      body="私たちの歩みは今年からではありません。これまでのプロジェクトや基盤を築いてきた仲間たちの記録をご覧ください。"
+      archiveButtonLabel="アーカイブへ"
       entries={archiveEntries}
     />
   </main>
@@ -105,7 +78,7 @@ const archiveEntries = (await getCollection('archive')).sort((a, b) => {
     brandTitle={copy.footer.brandTitle}
     brandTagline={copy.footer.brandTagline}
     exploreHeading={copy.footer.exploreHeading}
-    exploreLinks={[...copy.footer.exploreLinks]}
+    exploreLinks={footerLinks}
     connectHeading={copy.footer.connectHeading}
     copyrightLine={copy.footer.copyrightLine}
     privacyHref={copy.footer.privacyHref}

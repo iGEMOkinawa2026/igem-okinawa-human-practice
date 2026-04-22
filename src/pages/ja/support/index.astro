@@ -1,0 +1,37 @@
+---
+/**
+ * Support / Sponsors Page (JA)
+ */
+import { getCollection } from 'astro:content';
+import PageLayout from '../../../layouts/PageLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import Support from '../../../components/Support.astro';
+import { withBase } from '../../../lib/paths';
+
+const sponsors = (await getCollection('sponsors')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<PageLayout
+  title="支援する | iGEM Okinawa"
+  description="iGEM Okinawaのミッションを支援してください。スポンサーシップについてご案内します。"
+  locale="ja"
+>
+  <PageHero
+    title="支援する"
+    subtitle="ご支援は、実験設備、プロジェクト開発、国際大会への参加に直結します。"
+    breadcrumbs={[{ label: 'ホーム', href: withBase('ja/') }]}
+  />
+
+  <Support
+    locale="ja"
+    title="次世代の科学者を支える"
+    body="iGEM Okinawaの挑戦は、スポンサーやコミュニティの皆さまのご支援によって実現しています。ご支援は、実験設備、プロジェクト開発、国際大会への参加などに直結します。"
+    sponsorCtaHref="mailto:igem@oist.jp"
+    sponsorCtaLabel="スポンサーになる"
+    deckHref="#"
+    deckLabel="スポンサー資料を見る"
+    sponsors={sponsors}
+  />
+</PageLayout>

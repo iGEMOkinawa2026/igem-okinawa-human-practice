@@ -1,0 +1,56 @@
+---
+/**
+ * Human Practice Hub Page (EN)
+ * Overview + navigation to sub-sections
+ */
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { getHpNav } from '../../data/navigation';
+import { withBase } from '../../lib/paths';
+
+const hpNav = getHpNav('en');
+const hpEntries = (await getCollection('human-practice')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<PageLayout
+  title="Human Practice | iGEM Okinawa"
+  description="Our Human Practice work connects science to society through stakeholder engagement, ethics, and community impact."
+  locale="en"
+>
+  <PageHero
+    title="Human Practice"
+    subtitle="Connecting our science to the real world through responsible innovation."
+    breadcrumbs={[{ label: 'Home', href: withBase('') }]}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="hp-hub-intro">
+        <p>
+          Human Practice in iGEM goes beyond the lab. It is about ensuring that our research is
+          responsible, ethical, and beneficial to society. Explore each section below to learn more
+          about our approach.
+        </p>
+      </div>
+
+      <div class="hp-section-cards">
+        {hpEntries.map((entry) => (
+          <a
+            href={withBase(`human-practice/${entry.data.sectionSlug}/`)}
+            class="hp-section-card"
+          >
+            <div class="hp-section-card-order">{String(entry.data.order).padStart(2, '0')}</div>
+            <div class="hp-section-card-body">
+              <h3>{entry.data.title}</h3>
+              {entry.data.description && <p>{entry.data.description}</p>}
+            </div>
+            <span class="hp-section-card-arrow">→</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</PageLayout>

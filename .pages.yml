@@ -144,3 +144,43 @@ content:
         label: Sort order (within year)
         type: number
         required: false
+
+  - name: human-practice
+    label: Human Practice Sections
+    type: collection
+    path: src/content/human-practice
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      primary: title
+      sort:
+        - order
+        - title
+      default:
+        sort: order
+        order: asc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: title_ja
+        label: Title (Japanese)
+        type: string
+        required: false
+      - name: description
+        label: Description
+        type: text
+        required: false
+      - name: description_ja
+        label: Description (Japanese)
+        type: text
+        required: false
+      - name: sectionSlug
+        label: URL Slug
+        type: string
+        required: true
+      - name: order
+        label: Sort order
+        type: number
+        required: false

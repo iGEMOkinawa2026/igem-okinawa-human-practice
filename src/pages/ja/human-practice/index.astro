@@ -1,0 +1,57 @@
+---
+/**
+ * Human Practice Hub Page (JA)
+ */
+import { getCollection } from 'astro:content';
+import PageLayout from '../../../layouts/PageLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import { getHpNav } from '../../../data/navigation';
+import { withBase } from '../../../lib/paths';
+
+const hpNav = getHpNav('ja');
+const hpEntries = (await getCollection('human-practice')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<PageLayout
+  title="ヒューマンプラクティス | iGEM Okinawa"
+  description="ステークホルダーとの関わりや倫理を通じて、科学と社会をつなげるヒューマンプラクティスの取り組み。"
+  locale="ja"
+>
+  <PageHero
+    title="ヒューマンプラクティス"
+    subtitle="責任あるイノベーションを通じて、科学と社会をつなぐ。"
+    breadcrumbs={[{ label: 'ホーム', href: withBase('ja/') }]}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="hp-hub-intro">
+        <p>
+          iGEMにおけるヒューマンプラクティスは、研究室の枠を超えた取り組みです。
+          私たちの研究が責任を持って、倫理的に、そして社会にとって有益となるよう取り組んでいます。
+          以下の各セクションをご覧ください。
+        </p>
+      </div>
+
+      <div class="hp-section-cards">
+        {hpEntries.map((entry) => (
+          <a
+            href={withBase(`ja/human-practice/${entry.data.sectionSlug}/`)}
+            class="hp-section-card"
+          >
+            <div class="hp-section-card-order">{String(entry.data.order).padStart(2, '0')}</div>
+            <div class="hp-section-card-body">
+              <h3>{entry.data.title_ja || entry.data.title}</h3>
+              {(entry.data.description_ja || entry.data.description) && (
+                <p>{entry.data.description_ja || entry.data.description}</p>
+              )}
+            </div>
+            <span class="hp-section-card-arrow">→</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</PageLayout>

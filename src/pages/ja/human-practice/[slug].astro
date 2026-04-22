@@ -1,0 +1,32 @@
+---
+/**
+ * Human Practice Sub-page (JA) — dynamic route
+ */
+import { getCollection } from 'astro:content';
+import HumanPracticeLayout from '../../../layouts/HumanPracticeLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('human-practice');
+  return entries.map((entry) => ({
+    params: { slug: entry.data.sectionSlug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const title = entry.data.title_ja || entry.data.title;
+const description = entry.data.description_ja || entry.data.description || `${title}`;
+---
+
+<HumanPracticeLayout
+  title={`${title} — ヒューマンプラクティス | iGEM Okinawa`}
+  description={description}
+  locale="ja"
+  activeSlug={entry.data.sectionSlug}
+  pageTitle={title}
+  pageSubtitle={typeof description === 'string' ? description : undefined}
+>
+  <Content />
+</HumanPracticeLayout>

@@ -1,0 +1,87 @@
+---
+/**
+ * About Page (EN)
+ * Team introduction + mission + members list
+ */
+import PageLayout from '../../layouts/PageLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { withBase } from '../../lib/paths';
+---
+
+<PageLayout
+  title="About Us | iGEM Okinawa"
+  description="Learn about iGEM Okinawa — our team, mission, and history."
+  locale="en"
+>
+  <PageHero
+    title="About Us"
+    subtitle="Who we are and what drives our pursuit of science."
+    breadcrumbs={[{ label: 'Home', href: withBase('') }]}
+  />
+
+  <section class="section">
+    <div class="container about-page-content">
+      <!-- What is iGEM Okinawa -->
+      <div class="about-section">
+        <h2>What is iGEM Okinawa?</h2>
+        <p>
+          iGEM Okinawa is a collective of passionate students from various disciplines, united by a shared
+          vision: to advance synthetic biology and apply it to real-world problems.
+        </p>
+        <p>
+          Originating from the unique island environment of Okinawa, we aim to bridge local ecological
+          wisdom with global scientific innovation. Our multidisciplinary approach means we tackle problems
+          ranging from environmental conservation to finding novel biotechnological applications.
+        </p>
+      </div>
+
+      <!-- Mission -->
+      <div class="about-section">
+        <h2>Our Mission & Origins</h2>
+        <div class="mission-grid">
+          <div class="mission-card">
+            <div class="icon">🌴</div>
+            <h3>Rooted in Okinawa</h3>
+            <p>We draw inspiration from our local ecosystem, leveraging unique biological resources while answering local challenges with global implications.</p>
+          </div>
+          <div class="mission-card">
+            <div class="icon">🔬</div>
+            <h3>Science-Driven</h3>
+            <p>Rigorous research, meticulous lab work, and data-driven insights are at the core of every project we deploy.</p>
+          </div>
+          <div class="mission-card">
+            <div class="icon">🌍</div>
+            <h3>Internationally Active</h3>
+            <p>We aim to represent Japanese innovation at the Giant Jamboree, collaborating and competing with the brightest young minds worldwide.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Members -->
+      <div class="about-section">
+        <h2>Team Members</h2>
+        <p class="section-subtitle">Our 2026 team is made up of students across multiple universities and disciplines.</p>
+
+        <!-- Placeholder: HP team will fill in member data -->
+        <div class="members-list">
+          <div class="member-item">
+            <span class="member-name">Member Name</span>
+            <span class="member-role">Role / University</span>
+          </div>
+          <div class="member-item">
+            <span class="member-name">Member Name</span>
+            <span class="member-role">Role / University</span>
+          </div>
+          <div class="member-item">
+            <span class="member-name">Member Name</span>
+            <span class="member-role">Role / University</span>
+          </div>
+        </div>
+        <p class="text-muted" style="margin-top: 1.5rem; font-size: 0.9rem;">
+          <!-- This is placeholder data. Please update with actual member information. -->
+          Member list will be updated as the team grows.
+        </p>
+      </div>
+    </div>
+  </section>
+</PageLayout>

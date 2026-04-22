@@ -43,8 +43,21 @@ const archive = defineCollection({
   }),
 });
 
+const humanPractice = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    title_ja: z.string().optional(),
+    description: z.string().optional(),
+    description_ja: z.string().optional(),
+    sectionSlug: z.string(),
+    order: z.number().default(0),
+  }),
+});
+
 export const collections = {
   activities,
   sponsors,
   archive,
+  'human-practice': humanPractice,
 };

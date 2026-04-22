@@ -1,0 +1,72 @@
+---
+/**
+ * PageLayout — wraps any inner page with Header + Footer.
+ * Uses the centralized siteCopy + navigation data to avoid duplication.
+ */
+import YAML from 'yaml';
+
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+import { siteCopy } from '../data/siteCopy';
+import type { SiteLocale } from '../data/siteCopy';
+import { getMainNav } from '../data/navigation';
+import { withBase } from '../lib/paths';
+
+import socialRaw from '../data/social.yaml?raw';
+
+const social = YAML.parse(socialRaw) as {
+  links: { platform: string; url: string; shortLabel?: string }[];
+};
+
+interface Props {
+  title: string;
+  description: string;
+  locale?: SiteLocale;
+}
+
+const { title, description, locale = 'en' } = Astro.props;
+const copy = siteCopy[locale];
+const navItems = getMainNav(locale);
+
+const logoHref = locale === 'ja' ? withBase('ja/') : withBase('');
+const enHref = withBase('');
+const jaHref = withBase('ja/');
+
+// Build footer explore links from nav (flatten, no children)
+const footerLinks = navItems.map((item) => ({
+  label: item.label,
+  href: item.href,
+}));
+---
+
+<BaseLayout title={title} description={description} lang={locale}>
+  <Header
+    siteTitle={copy.header.siteTitle}
+    logoHref={logoHref}
+    navItems={navItems}
+    enHref={enHref}
+    jaHref={jaHref}
+    activeLang={locale}
+    menuToggleLabel={copy.header.menuToggleLabel}
+  />
+
+  <main>
+    <slot />
+  </main>
+
+  <Footer
+    brandTitle={copy.footer.brandTitle}
+    brandTagline={copy.footer.brandTagline}
+    exploreHeading={copy.footer.exploreHeading}
+    exploreLinks={footerLinks}
+    connectHeading={copy.footer.connectHeading}
+    copyrightLine={copy.footer.copyrightLine}
+    privacyHref={copy.footer.privacyHref}
+    privacyLabel={copy.footer.privacyLabel}
+    termsHref={copy.footer.termsHref}
+    termsLabel={copy.footer.termsLabel}
+    socialLinks={social.links}
+  />
+</BaseLayout>

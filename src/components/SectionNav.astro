@@ -1,0 +1,37 @@
+---
+/**
+ * SectionNav — sidebar / horizontal navigation for HP sub-sections.
+ */
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  items: NavItem[];
+  /** The currently active slug — used for highlighting */
+  activeSlug?: string;
+}
+
+const { items, activeSlug } = Astro.props;
+---
+
+<nav class="section-nav" aria-label="Section navigation">
+  <ul>
+    {items.map((item) => {
+      const isActive = activeSlug && item.href.includes(`/${activeSlug}/`);
+      return (
+        <li>
+          <a
+            href={item.href}
+            class:list={['section-nav-link', { active: isActive }]}
+            aria-current={isActive ? 'page' : undefined}
+          >
+            <span class="section-nav-indicator"></span>
+            {item.label}
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</nav>
