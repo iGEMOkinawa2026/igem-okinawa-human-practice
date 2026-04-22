@@ -187,17 +187,17 @@ ul {
     gap: 2rem;
 }
 
-.main-nav ul {
+.main-nav > ul {
     display: flex;
     gap: 2rem;
 }
 
-.main-nav ul a {
+.main-nav > ul > li > a {
     font-weight: 500;
     color: var(--color-text-main);
 }
 
-.main-nav ul a:hover {
+.main-nav > ul > li > a:hover {
     color: var(--color-primary);
 }
 
@@ -882,7 +882,7 @@ a.lang-btn:hover {
         display: flex;
     }
     
-    .main-nav ul {
+    .main-nav > ul {
         flex-direction: column;
         width: 100%;
         text-align: center;
@@ -1480,7 +1480,7 @@ a.lang-btn:hover {
     }
 }
 
-/* Header Dropdown */
+/* Header Dropdown — JS-controlled (click to toggle) */
 .has-dropdown {
     position: relative;
 }
@@ -1488,7 +1488,7 @@ a.lang-btn:hover {
 .dropdown-menu {
     display: none;
     position: absolute;
-    top: calc(100% + 0.5rem);
+    top: calc(100% + 0.25rem);
     left: 50%;
     transform: translateX(-50%);
     background-color: var(--color-bg-base);
@@ -1502,8 +1502,8 @@ a.lang-btn:hover {
     gap: 0;
 }
 
-.has-dropdown:hover .dropdown-menu,
-.has-dropdown:focus-within .dropdown-menu {
+/* Only show when JS adds the .dropdown-open class */
+.has-dropdown.dropdown-open > .dropdown-menu {
     display: flex;
 }
 
@@ -1525,10 +1525,27 @@ a.lang-btn:hover {
     color: var(--color-primary);
 }
 
+/* Dropdown trigger visual indicator */
+.has-dropdown > a::after {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid currentColor;
+    margin-left: 0.4rem;
+    vertical-align: middle;
+    transition: transform 0.2s ease;
+}
+
+.has-dropdown.dropdown-open > a::after {
+    transform: rotate(180deg);
+}
+
 /* Mobile: flatten dropdown into vertical list */
 @media (max-width: 768px) {
     .dropdown-menu {
-        display: none;
         position: static;
         transform: none;
         box-shadow: none;
@@ -1536,15 +1553,17 @@ a.lang-btn:hover {
         padding: 0;
         min-width: 0;
         background-color: transparent;
-    }
-
-    .main-nav.nav-open .has-dropdown .dropdown-menu {
-        display: flex;
+        top: auto;
+        left: auto;
     }
 
     .dropdown-menu a {
         padding: 0.5rem 1rem;
         font-size: 0.85rem;
         color: var(--color-text-muted);
+    }
+
+    .has-dropdown > a::after {
+        border-top-color: var(--color-text-muted);
     }
 }

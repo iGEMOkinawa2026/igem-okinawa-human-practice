@@ -91,6 +91,7 @@ const {
     const menuToggle = document.getElementById('mobile-menu-toggle');
     const mainNav = document.getElementById('main-nav');
 
+    // Mobile hamburger menu toggle
     if (menuToggle && mainNav) {
       menuToggle.addEventListener('click', () => {
         const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
@@ -98,5 +99,41 @@ const {
         mainNav.classList.toggle('nav-open');
       });
     }
+
+    // Dropdown toggle on click (all screen sizes)
+    document.querySelectorAll('.has-dropdown > a').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const li = link.parentElement;
+        if (!li) return;
+
+        // Close other open dropdowns
+        document.querySelectorAll('.has-dropdown.dropdown-open').forEach((el) => {
+          if (el !== li) el.classList.remove('dropdown-open');
+        });
+
+        // Toggle this dropdown
+        li.classList.toggle('dropdown-open');
+      });
+    });
+
+    // Close dropdown when clicking outside the dropdown area
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.has-dropdown')) {
+        document.querySelectorAll('.has-dropdown.dropdown-open').forEach((el) => {
+          el.classList.remove('dropdown-open');
+        });
+      }
+    });
+
+    // Close dropdown after clicking a dropdown link (navigating away)
+    document.querySelectorAll('.dropdown-menu a').forEach((link) => {
+      link.addEventListener('click', () => {
+        document.querySelectorAll('.has-dropdown.dropdown-open').forEach((el) => {
+          el.classList.remove('dropdown-open');
+        });
+      });
+    });
   });
 </script>
+
