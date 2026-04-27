@@ -1,7 +1,7 @@
 :root {
     /* Color Palette */
-    --color-primary: #094067;   /* Deep Sea Blue */
-    --color-primary-light: #1665A5; /* Lighter Blue for hover */
+    --color-primary: #4257a6;   /* Deep Sea Blue */
+    --color-primary-light: #5b71c7; /* Lighter Blue for hover */
     --color-secondary: #EF476F; /* Ryukyu Coral Accent */
     --color-secondary-hover: #D7385A;
     --color-bg-base: #FFFFFF;

@@ -36,7 +36,15 @@ export function getMainNav(locale: SiteLocale): NavItem[] {
 
   return locale === 'en'
     ? [
+        { label: 'Home', href: withBase(`${prefix}`) },
         { label: 'About', href: withBase(`${prefix}about/`) },
+        {
+          label: 'Project',
+          href: withBase(`${prefix}project/2026/`),
+          children: [
+            { label: '2026 (Current)', href: withBase(`${prefix}project/2026/`) }
+          ]
+        },
         {
           label: 'Human Practice',
           href: withBase(`${prefix}human-practice/`),
@@ -47,10 +55,17 @@ export function getMainNav(locale: SiteLocale): NavItem[] {
         },
         { label: 'Activities', href: withBase(`${prefix}activities/`) },
         { label: 'Support Us', href: withBase(`${prefix}support/`) },
-        { label: 'Archive', href: withBase(`${prefix}archive/`) },
       ]
     : [
+        { label: 'ホーム', href: withBase(`${prefix}`) },
         { label: '概要', href: withBase(`${prefix}about/`) },
+        {
+          label: 'プロジェクト',
+          href: withBase(`${prefix}project/2026/`),
+          children: [
+            { label: '2026 (Current)', href: withBase(`${prefix}project/2026/`) }
+          ]
+        },
         {
           label: 'ヒューマンプラクティス',
           href: withBase(`${prefix}human-practice/`),
@@ -61,7 +76,6 @@ export function getMainNav(locale: SiteLocale): NavItem[] {
         },
         { label: '活動', href: withBase(`${prefix}activities/`) },
         { label: '支援', href: withBase(`${prefix}support/`) },
-        { label: 'アーカイブ', href: withBase(`${prefix}archive/`) },
       ];
 }
 

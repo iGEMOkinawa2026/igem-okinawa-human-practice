@@ -1,21 +1,17 @@
 ---
 /**
- * Landing Page (EN)
- * Hero + card navigation to main sections
+ * Portal Landing Page (EN)
  */
 import YAML from 'yaml';
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
-import Hero from '../components/Hero.astro';
-import SiteNavCards from '../components/SiteNavCards.astro';
-import ArchivePreview from '../components/ArchivePreview.astro';
 import Footer from '../components/Footer.astro';
+import MemberCard from '../components/MemberCard.astro';
 
 import { siteCopy } from '../data/siteCopy';
 import { getMainNav } from '../data/navigation';
 import { withBase } from '../lib/paths';
-import { getCollection } from 'astro:content';
 
 import socialRaw from '../data/social.yaml?raw';
 
@@ -26,18 +22,20 @@ const social = YAML.parse(socialRaw) as {
 const copy = siteCopy.en;
 const navItems = getMainNav('en');
 
-const archiveEntries = (await getCollection('archive')).sort((a, b) => {
-  if (b.data.year !== a.data.year) return b.data.year - a.data.year;
-  return a.data.order - b.data.order;
-});
-
 const footerLinks = navItems.map((item) => ({
   label: item.label,
   href: item.href,
 }));
+
+// Mock data for Team Preview
+const teamMembers = [
+  { name: 'Alice Smith', role: ['Leader', 'Wet Lab'], description: 'Leading the overall project and managing wet lab experiments.' },
+  { name: 'Bob Jones', role: ['Dry Lab', 'Wiki'], description: 'Focusing on modeling and website development.' },
+  { name: 'Charlie Doe', role: ['Human Practice'], description: 'Engaging with the community and gathering stakeholder feedback.' }
+];
 ---
 
-<BaseLayout title={copy.page.title} description={copy.page.description} lang="en">
+<BaseLayout title={`Portal - ${copy.page.title}`} description="Welcome to the iGEM Okinawa Team Portal" lang="en">
   <Header
     siteTitle={copy.header.siteTitle}
     logoHref={withBase('')}
@@ -49,30 +47,77 @@ const footerLinks = navItems.map((item) => ({
   />
 
   <main>
-    <Hero
-      badgeNatural={copy.hero.badgeNatural}
-      badgeText={copy.hero.badgeText}
-      headingPrefix={copy.hero.headingPrefix}
-      headingStrong={copy.hero.headingStrong}
-      headingSuffix={copy.hero.headingSuffix}
-      headingSuffixSmall={copy.hero.headingSuffixSmall}
-      lede={copy.hero.lede}
-      primaryCtaLabel={copy.hero.primaryCtaLabel}
-      primaryCtaHref={withBase(copy.hero.primaryCtaHref)}
-      secondaryCtaLabel={copy.hero.secondaryCtaLabel}
-      secondaryCtaHref={withBase(copy.hero.secondaryCtaHref)}
-      imagePlaceholderText={copy.hero.imagePlaceholderText}
-    />
+    <!-- Hero Section -->
+    <section class="portal-hero">
+      <div class="container text-center">
+        <h1 class="portal-hero-title">iGEM <strong>Okinawa</strong></h1>
+        <p class="portal-hero-slogan">Engineering biology for a sustainable future in the Ryukyu Islands.</p>
+        <div class="portal-hero-actions">
+          <a href="#about" class="btn btn-primary btn-large">Discover Our Mission</a>
+        </div>
+      </div>
+    </section>
 
-    <SiteNavCards cards={[...copy.navCards]} locale="en" />
+    <!-- About Section -->
+    <section id="about" class="section section-alt">
+      <div class="container">
+        <div class="section-header text-center">
+          <h2>About Us</h2>
+          <p class="subtitle">Our Mission & Vision</p>
+        </div>
+        <div class="mission-grid">
+          <div class="mission-card">
+            <div class="icon">🌊</div>
+            <h3>Local Innovation</h3>
+            <p>Solving unique challenges in Okinawa's marine and terrestrial ecosystems using synthetic biology.</p>
+          </div>
+          <div class="mission-card">
+            <div class="icon">🤝</div>
+            <h3>Community Engagement</h3>
+            <p>Working closely with local stakeholders, farmers, and industries to ensure real-world impact.</p>
+          </div>
+          <div class="mission-card">
+            <div class="icon">🔬</div>
+            <h3>Scientific Excellence</h3>
+            <p>Fostering the next generation of researchers through rigorous methodology and open science.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <ArchivePreview
-      locale="en"
-      title="Past Activities & Previous Teams"
-      body="Our journey didn't start this year. Explore the legacy, past projects, and the alumni who laid the foundation for iGEM Okinawa."
-      archiveButtonLabel="Visit the Archive"
-      entries={archiveEntries}
-    />
+    <!-- Project Preview -->
+    <section class="section">
+      <div class="container">
+        <div class="project-preview-container">
+          <div class="project-preview-text">
+            <h2>Current Project: 2026</h2>
+            <p>We are currently working on an innovative approach to agricultural resilience in subtropical climates. Our engineered system aims to protect vital crops while minimizing environmental impact.</p>
+            <a href={withBase('project/2026/')} class="btn btn-primary">Read More About 2026 Project</a>
+          </div>
+          <div class="project-preview-visual">
+            <div class="dna-graphic-placeholder">
+              [ 2026 Project Graphic ]
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Preview -->
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header text-center">
+          <h2>Our Team</h2>
+          <p class="subtitle">Meet the minds behind iGEM Okinawa</p>
+        </div>
+        <div class="team-grid">
+          {teamMembers.map(member => (
+            <MemberCard name={member.name} role={member.role} description={member.description} />
+          ))}
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <Footer
@@ -89,3 +134,83 @@ const footerLinks = navItems.map((item) => ({
     socialLinks={social.links}
   />
 </BaseLayout>
+
+<style>
+  .portal-hero {
+    padding: 8rem 1rem;
+    background: linear-gradient(135deg, var(--color-bg-alt) 0%, var(--color-bg-base) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .portal-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 80%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(66, 87, 166, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 0;
+  }
+  .portal-hero .container {
+    position: relative;
+    z-index: 1;
+  }
+  .portal-hero-title {
+    font-size: clamp(3rem, 2rem + 4vw, 5rem);
+    color: var(--color-text-heading);
+    margin-bottom: 1rem;
+    letter-spacing: -1px;
+  }
+  .portal-hero-title strong {
+    color: var(--color-primary);
+  }
+  .portal-hero-slogan {
+    font-size: 1.5rem;
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+  }
+  .project-preview-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    align-items: center;
+    background: var(--color-bg-base);
+    padding: 3rem;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(0,0,0,0.03);
+  }
+  @media (min-width: 768px) {
+    .project-preview-container {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .project-preview-text h2 {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+  }
+  .project-preview-text p {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+    color: var(--color-text-main);
+  }
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  @media (min-width: 768px) {
+    .team-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1024px) {
+    .team-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

@@ -1,0 +1,92 @@
+---
+export interface Props {
+  name: string;
+  role: string[];
+  description?: string;
+}
+
+const { name, role, description } = Astro.props;
+const initial = name ? name.charAt(0).toUpperCase() : '?';
+---
+
+<div class="member-card">
+  <div class="member-avatar">
+    {initial}
+  </div>
+  <div class="member-info">
+    <h3 class="member-name">{name}</h3>
+    <div class="member-tags">
+      {role.map((r) => (
+        <span class="member-tag">{r}</span>
+      ))}
+    </div>
+    {description && <p class="member-desc">{description}</p>}
+  </div>
+</div>
+
+<style>
+  .member-card {
+    background: var(--color-bg-base);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .member-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .member-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: rgba(66, 87, 166, 0.1);
+    color: var(--color-primary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    border: 2px solid rgba(66, 87, 166, 0.2);
+  }
+
+  .member-name {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-heading);
+  }
+
+  .member-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .member-tag {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    letter-spacing: 0.02em;
+  }
+
+  .member-desc {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+</style>
