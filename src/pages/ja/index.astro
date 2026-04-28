@@ -265,4 +265,101 @@ const footerLinks = navItems.map((item) => ({
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
+    /* ---- Team blocks ---- */
+  .team-blocks {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+  @media (min-width: 640px) {
+    .team-blocks { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .team-blocks { grid-template-columns: repeat(3, 1fr); }
+  }
+  .team-block {
+    background: var(--color-bg-base);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: var(--border-radius-lg);
+    padding: 1.75rem;
+  }
+  .team-block-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .team-block h3 {
+    font-size: 1.125rem;
+    color: var(--color-text-heading);
+    margin: 0;
+  }
+  .team-tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+  .team-tag.wet      { background: #dbeafe; color: #1e40af; }
+  .team-tag.dry      { background: #dcfce7; color: #166534; }
+  .team-tag.hp       { background: #fef9c3; color: #854d0e; }
+  .team-tag.funding  { background: #fce7f3; color: #9d174d; }
+  .team-tag.wiki     { background: #ede9fe; color: #5b21b6; }
+
+  /* ---- Project preview tag ---- */
+  .project-preview-tag {
+    display: inline-block;
+    background: var(--color-primary);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.2rem 0.75rem;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ---- DNA graphic placeholder ---- */
+  .dna-graphic-placeholder {
+    background: var(--color-bg-alt);
+    border-radius: var(--border-radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    min-height: 200px;
+    color: var(--color-text-muted);
+  }
+
+  /* ---- Mission grid ---- */
+  .mission-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  @media (min-width: 768px) {
+    .mission-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .mission-card {
+    background: var(--color-bg-base);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .mission-card .icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .mission-card h3 {
+    font-size: 1.125rem;
+    color: var(--color-text-heading);
+    margin-bottom: 0.75rem;
+  }
 </style>
