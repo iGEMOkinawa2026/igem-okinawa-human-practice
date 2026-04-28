@@ -7,7 +7,6 @@ import YAML from 'yaml';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import MemberCard from '../../components/MemberCard.astro';
 
 import { siteCopy } from '../../data/siteCopy';
 import { getMainNav } from '../../data/navigation';
@@ -27,12 +26,7 @@ const footerLinks = navItems.map((item) => ({
   href: item.href,
 }));
 
-// Mock data for Team Preview
-const teamMembers = [
-  { name: 'Alice Smith', role: ['Leader', 'Wet Lab'], description: 'プロジェクト全体を統括し、ウェットラボでの実験を推進。' },
-  { name: 'Bob Jones', role: ['Dry Lab', 'Wiki'], description: 'モデリングとWebサイト（Wiki）開発を担当。' },
-  { name: 'Charlie Doe', role: ['Human Practice'], description: '地域社会との連携、ステークホルダーからのフィードバック収集。' }
-];
+
 ---
 
 <BaseLayout title={`ポータル - ${copy.page.title}`} description="iGEM Okinawa チームポータルへようこそ" lang="ja">
@@ -51,7 +45,7 @@ const teamMembers = [
     <section class="portal-hero">
       <div class="container text-center">
         <h1 class="portal-hero-title">iGEM <strong>Okinawa</strong></h1>
-        <p class="portal-hero-slogan">合成生物学で、琉球列島の持続可能な未来をデザインする。</p>
+        <p class="portal-hero-slogan">合成生物学で未来を創造する</p>
         <div class="portal-hero-actions">
           <a href="#about" class="btn btn-primary btn-large">私たちの使命</a>
         </div>
@@ -60,43 +54,55 @@ const teamMembers = [
 
     <!-- About Section -->
     <section id="about" class="section section-alt">
-      <div class="container">
-        <div class="section-header text-center">
-          <h2>About Us</h2>
-          <p class="subtitle">Mission & Vision</p>
+        <div class="container">
+          <div class="section-header text-center">
+            <h2>iGEM Okinawa について</h2>
+            <p class="subtitle">私たちについて</p>
+          </div>
+          <div class="mission-grid">
+            <!-- card1: 実績 -->
+            <div class="mission-card">
+              <div class="icon">🏆</div>
+              <h3>2025 ゴールドメダル</h3>
+              <p>iGEMへ初出場した2025年、iGEM Okinawa はゴールドメダルを獲得しました。これは、チームが厳格な科学への取り組みと地域社会への貢献に尽力してきた証です。</p>
+            </div>
+            <!-- card2: チーム構成 -->
+            <div class="mission-card">
+              <div class="icon">🏫</div>
+              <h3>県内複数校の合同チーム</h3>
+              <p>OIST、沖縄高専、琉球大学の学生が集まり、ウェットラボ、ドライラボ、そしてヒューマンプラクティスなどの各分野における多様な専門知識を結集しています。</p>
+            </div>
+            <!-- card3: 地域課題 -->
+            <div class="mission-card">
+              <div class="icon">🌾</div>
+              <h3>地域特有の課題、確かな成果</h3>
+              <p>私たちのプロジェクトは、沖縄ならではの環境に根ざしています。地元の農家や地域社会と直接連携し、合成生物学によるソリューションが、現実的で差し迫ったニーズに応えられるよう取り組んでいます。</p>
+            </div>
+
+          </div>
         </div>
-        <div class="mission-grid">
-          <div class="mission-card">
-            <div class="icon">🌊</div>
-            <h3>Local Innovation</h3>
-            <p>合成生物学を用いて、沖縄の海洋や陸上生態系における固有の課題を解決します。</p>
-          </div>
-          <div class="mission-card">
-            <div class="icon">🤝</div>
-            <h3>Community Engagement</h3>
-            <p>地域のステークホルダーや農家、産業界と密接に連携し、社会実装を目指します。</p>
-          </div>
-          <div class="mission-card">
-            <div class="icon">🔬</div>
-            <h3>Scientific Excellence</h3>
-            <p>厳密な手法とオープンサイエンスを通じて、次世代の研究者を育成します。</p>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
 
     <!-- Project Preview -->
     <section class="section">
       <div class="container">
         <div class="project-preview-container">
           <div class="project-preview-text">
-            <h2>Current Project: 2026</h2>
-            <p>亜熱帯気候における農業のレジリエンス（回復力）を高める革新的なアプローチに取り組んでいます。環境への影響を最小限に抑えつつ、重要な農作物を保護するシステムの構築を目指します。</p>
-            <a href={withBase('ja/project/2026/')} class="btn btn-primary">2026年プロジェクトを見る</a>
+            <h2>最新の取り組み: 2026</h2>
+            <p class="project-preview-tag">AI × Biology</p>
+            <p>
+              私たちは、<strong>低pH耐性バクテリオファージ</strong>
+              を開発し、人々の健康と沖縄の農業産業に甚大な被害をもたらしている
+              AMR病原体（サルモネラ菌、ETEC、ピロリ菌）と戦っています。
+              AIを活用したパイプラインを用いて、胃の酸性環境下で
+              効果を発揮するファージタンパク質の変異体を予測・検証しています。
+            </p>
+            <a href={withBase('project/2026/')} class="btn btn-primary">続きを読む</a>
           </div>
           <div class="project-preview-visual">
+            <!-- EDIT: 画像が用意できたら img タグに差し替える -->
             <div class="dna-graphic-placeholder">
-              [ 2026 Project Graphic ]
+              🦠 Phage × AI
             </div>
           </div>
         </div>
@@ -104,16 +110,62 @@ const teamMembers = [
     </section>
 
     <!-- Team Preview -->
+    <!-- EDIT: チーム説明文・メンバー数はここを直接編集 -->
     <section class="section section-alt">
       <div class="container">
         <div class="section-header text-center">
-          <h2>Our Team</h2>
-          <p class="subtitle">iGEM Okinawaのメンバー紹介</p>
+          <h2>チームについて</h2>
+          <p class="subtitle">
+            OIST、沖縄高専、琉球大学の学生たちが集まり、活動しています。
+          </p>
         </div>
-        <div class="team-grid">
-          {teamMembers.map(member => (
-            <MemberCard name={member.name} role={member.role} description={member.description} />
-          ))}
+
+        <div class="team-blocks">
+
+          <div class="team-block">
+            <div class="team-block-header">
+              <span class="team-tag wet">Wet Lab</span>
+              <h3>ウェットラボ</h3>
+            </div>
+            <p>すべての実験業務（ファージの単離、タンパク質工学、クローニング、およびAIが予測した変異体の実験室での検証）を担当します。</p>
+          </div>
+
+          <div class="team-block">
+            <div class="team-block-header">
+              <span class="team-tag dry">Dry Lab</span>
+              <h3>ドライラボ</h3>
+            </div>
+            <p>低pH耐性ファージタンパク質変異体の予測を行うAIベースのパイプラインを構築・運用する。計算モデリングおよびデータ分析を担当する。</p>
+          </div>
+
+          <div class="team-block">
+            <div class="team-block-header">
+              <span class="team-tag hp">Human Practice</span>
+              <h3>ヒューマンプラクティス</h3>
+            </div>
+            <p>私たちの科学を社会と結びつける――地元の農家、医療従事者、地域社会と連携し、私たちの活動が真のニーズに応えるよう努めています。</p>
+          </div>
+
+          <div class="team-block">
+            <div class="team-block-header">
+              <span class="team-tag funding">Funding</span>
+              <h3>ファンディング</h3>
+            </div>
+            <p>研究活動および国際大会への参加を維持するため、スポンサー開拓、寄付キャンペーン、および財務計画の管理を行っています。</p>
+          </div>
+
+          <div class="team-block">
+            <div class="team-block-header">
+              <span class="team-tag wiki">Wiki / Video</span>
+              <h3>Wiki / Video</h3>
+            </div>
+            <p>iGEM Wiki、プロモーション動画、そしてこのウェブサイトを通じて、私たちの研究成果を記録・発信し、世界中の人々が私たちの活動にアクセスできるようにしています。</p>
+          </div>
+
+        </div>
+
+        <div class="text-center" style="margin-top: 3rem;">
+          <a href={withBase('about/')} class="btn btn-primary">チーム全員のご紹介</a>
         </div>
       </div>
     </section>
