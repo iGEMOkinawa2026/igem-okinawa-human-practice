@@ -7,7 +7,6 @@ import YAML from 'yaml';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import MemberCard from '../components/MemberCard.astro';
 
 import { siteCopy } from '../data/siteCopy';
 import { getMainNav } from '../data/navigation';
@@ -27,12 +26,6 @@ const footerLinks = navItems.map((item) => ({
   href: item.href,
 }));
 
-// Mock data for Team Preview
-const teamMembers = [
-  { name: 'Alice Smith', role: ['Leader', 'Wet Lab'], description: 'Leading the overall project and managing wet lab experiments.' },
-  { name: 'Bob Jones', role: ['Dry Lab', 'Wiki'], description: 'Focusing on modeling and website development.' },
-  { name: 'Charlie Doe', role: ['Human Practice'], description: 'Engaging with the community and gathering stakeholder feedback.' }
-];
 ---
 
 <BaseLayout title={`Portal - ${copy.page.title}`} description="Welcome to the iGEM Okinawa Team Portal" lang="en">
@@ -95,32 +88,135 @@ const teamMembers = [
         <div class="project-preview-container">
           <div class="project-preview-text">
             <h2>Current Project: 2026</h2>
-            <p>We are currently working on an innovative approach to agricultural resilience in subtropical climates. Our engineered system aims to protect vital crops while minimizing environmental impact.</p>
-            <a href={withBase('project/2026/')} class="btn btn-primary">Read More About 2026 Project</a>
+            <p class="project-preview-tag">AI × Biology</p>
+            <p>
+              We are engineering <strong>low-pH resistant bacteriophages</strong>
+              to combat AMR pathogens — Salmonella, ETEC, and H. pylori — that
+              devastate both human health and Okinawa's agricultural industry.
+              Using an AI-based pipeline, we predict and validate phage protein
+              variants effective in the acidic environment of the stomach.
+            </p>
+            <a href={withBase('project/2026/')} class="btn btn-primary">Read More</a>
           </div>
           <div class="project-preview-visual">
+            <!-- EDIT: 画像が用意できたら img タグに差し替える -->
             <div class="dna-graphic-placeholder">
-              [ 2026 Project Graphic ]
+              🦠 Phage × AI
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Team Preview -->
+    <!-- Team Section -->
+    <!-- EDIT: チーム説明文・メンバー数はここを直接編集 -->
     <section class="section section-alt">
       <div class="container">
         <div class="section-header text-center">
           <h2>Our Team</h2>
-          <p class="subtitle">Meet the minds behind iGEM Okinawa</p>
+          <p class="subtitle">
+            Students from OIST, NIT Okinawa College, and the University of the Ryukyus —
+            united by synthetic biology.
+          </p>
         </div>
-        <div class="team-grid">
-          {teamMembers.map(member => (
-            <MemberCard name={member.name} role={member.role} description={member.description} />
-          ))}
+
+        <div class="team-blocks">
+
+          <div class="team-block">
+            <div class="team-block-header">
+              <span class="team-tag wet">Wet Lab</span>
+              <h3>Wet Lab</h3>
+            </div>
+            <p>Responsible for all experimental work — phage isolation, protein engineering, cloning, and lab validation of AI-predicted variants.</p>
+          </div>
+
+          <div class="team-block">
+            <div class="team-block-header">
+              <span class="team-tag dry">Dry Lab</span>
+              <h3>Dry Lab</h3>
+            </div>
+            <p>Builds and runs the AI-based pipeline for predicting low-pH resistant phage protein variants. Handles computational modeling and data analysis.</p>
+          </div>
+
+          <div class="team-block">
+            <div class="team-block-header">
+              <span class="team-tag hp">Human Practice</span>
+              <h3>Human Practice</h3>
+            </div>
+            <p>Connects our science to society — engaging with local farmers, medical professionals, and communities to ensure our work addresses real needs.</p>
+          </div>
+
+          <div class="team-block">
+            <div class="team-block-header">
+              <span class="team-tag funding">Funding</span>
+              <h3>Funding</h3>
+            </div>
+            <p>Manages sponsorship outreach, donation campaigns, and financial planning to sustain our research and international competition entry.</p>
+          </div>
+
+          <div class="team-block">
+            <div class="team-block-header">
+              <span class="team-tag wiki">Wiki / Video</span>
+              <h3>Wiki / Video</h3>
+            </div>
+            <p>Documents and communicates our research through the iGEM Wiki, promotional videos, and this website — making our work accessible to the world.</p>
+          </div>
+
+        </div>
+
+        <div class="text-center" style="margin-top: 3rem;">
+          <a href={withBase('about/')} class="btn btn-primary">Meet the Full Team</a>
         </div>
       </div>
     </section>
+
+<style>
+  /* Team blocks */
+  .team-blocks {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+  @media (min-width: 640px) {
+    .team-blocks { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .team-blocks { grid-template-columns: repeat(3, 1fr); }
+  }
+  .team-block {
+    background: var(--color-bg-base);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: var(--border-radius-lg);
+    padding: 1.75rem;
+  }
+  .team-block-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .team-block h3 {
+    font-size: 1.125rem;
+    color: var(--color-text-heading);
+    margin: 0;
+  }
+  .team-tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+  /* EDIT: チームカラーはここで変更 */
+  .team-tag.wet      { background: #dbeafe; color: #1e40af; }
+  .team-tag.dry      { background: #dcfce7; color: #166534; }
+  .team-tag.hp       { background: #fef9c3; color: #854d0e; }
+  .team-tag.funding  { background: #fce7f3; color: #9d174d; }
+  .team-tag.wiki     { background: #ede9fe; color: #5b21b6; }
+</style>
 
   </main>
 
