@@ -75,7 +75,7 @@ export const siteCopy = {
     ],
     footer: {
       brandTitle: 'iGEM Okinawa',
-      brandTagline: 'From Okinawa to the world. \nShaping the future through synthetic biology.',
+      brandTagline: 'From Okinawa to the world. \nCreating the future through synthetic biology.',
       exploreHeading: 'Explore',
       connectHeading: 'Connect',
       copyrightLine: '© 2026 iGEM Okinawa. All rights reserved.',
