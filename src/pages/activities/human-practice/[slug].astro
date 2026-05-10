@@ -4,7 +4,7 @@
  * Renders each HP section from Markdown content
  */
 import { getCollection } from 'astro:content';
-import HumanPracticeLayout from '../../layouts/HumanPracticeLayout.astro';
+import HumanPracticeLayout from '../../../layouts/HumanPracticeLayout.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('human-practice');

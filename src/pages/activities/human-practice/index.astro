@@ -4,10 +4,10 @@
  * Overview + navigation to sub-sections
  */
 import { getCollection } from 'astro:content';
-import PageLayout from '../../layouts/PageLayout.astro';
-import PageHero from '../../components/PageHero.astro';
-import { getHpNav } from '../../data/navigation';
-import { withBase } from '../../lib/paths';
+import PageLayout from '../../../layouts/PageLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import { getHpNav } from '../../../data/navigation';
+import { withBase } from '../../../lib/paths';
 
 const hpNav = getHpNav('en');
 const hpEntries = (await getCollection('human-practice')).sort(
@@ -39,7 +39,7 @@ const hpEntries = (await getCollection('human-practice')).sort(
       <div class="hp-section-cards">
         {hpEntries.map((entry) => (
           <a
-            href={withBase(`human-practice/${entry.data.sectionSlug}/`)}
+            href={withBase(`activities/human-practice/${entry.data.sectionSlug}/`)}
             class="hp-section-card"
           >
             <div class="hp-section-card-order">{String(entry.data.order).padStart(2, '0')}</div>

@@ -38,7 +38,7 @@ const hpEntries = (await getCollection('human-practice')).sort(
       <div class="hp-section-cards">
         {hpEntries.map((entry) => (
           <a
-            href={withBase(`ja/human-practice/${entry.data.sectionSlug}/`)}
+            href={withBase(`ja/activities/human-practice/${entry.data.sectionSlug}/`)}
             class="hp-section-card"
           >
             <div class="hp-section-card-order">{String(entry.data.order).padStart(2, '0')}</div>
