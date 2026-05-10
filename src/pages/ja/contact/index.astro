@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { siteCopy } from '../../data/siteCopy';
+import { getMainNav } from '../../data/navigation';
+import { withBase } from '../../lib/paths';
+import YAML from 'yaml';
+import socialRaw from '../../data/social.yaml?raw';
+
+const social = YAML.parse(socialRaw) as any;
+const copy = siteCopy.ja;
+const navItems = getMainNav('ja');
+const footerLinks = navItems.map(i => ({ label: i.label, href: i.href }));
+---
+
+<BaseLayout title={`お問い合わせ - ${copy.page.title}`} description="iGEM Okinawa へのお問い合わせ" lang="ja">
+  <Header
+    siteTitle={copy.header.siteTitle}
+    logoHref={withBase('ja/')}
+    navItems={navItems}
+    enHref={withBase('contact/')}
+    jaHref={withBase('ja/contact/')}
+    activeLang="ja"
+    menuToggleLabel={copy.header.menuToggleLabel}
+  />
+  <main class="section">
+    <div class="container" style="max-width: 600px;">
+      <div class="text-center" style="margin-bottom: 3rem;">
+        <h1 style="color: var(--color-primary);">お問い合わせ</h1>
+        <p class="subtitle">ご質問・ご支援についてお気軽にご連絡ください。</p>
+      </div>
+
+      <div class="card" style="padding: 2rem; background: white; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-sm);">
+        <p style="margin-bottom: 2rem; text-align: center;">
+          プロジェクトについてのご質問、スポンサーシップ（ご協賛）に関するお問い合わせ、その他ご不明な点がございましたら、以下のメールアドレスまたはSNSよりご連絡ください。
+        </p>
+
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <h3 style="color: var(--color-text-heading); margin-bottom: 0.5rem;">Email</h3>
+          <a href="mailto:igem.okinawa@gmail.com" style="color: var(--color-primary); font-weight: 600; font-size: 1.2rem;">igem.okinawa@gmail.com</a>
+        </div>
+
+        <div style="text-align: center;">
+          <h3 style="color: var(--color-text-heading); margin-bottom: 1rem;">SNS</h3>
+          <div style="display: flex; gap: 1rem; justify-content: center;">
+            {social.links.map(link => (
+              <a href={link.url} target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark">
+                {link.platform}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <Footer brandTitle={copy.footer.brandTitle} brandTagline={copy.footer.brandTagline} exploreHeading={copy.footer.exploreHeading} exploreLinks={footerLinks} connectHeading={copy.footer.connectHeading} copyrightLine={copy.footer.copyrightLine} privacyHref={copy.footer.privacyHref} privacyLabel={copy.footer.privacyLabel} termsHref={copy.footer.termsHref} termsLabel={copy.footer.termsLabel} socialLinks={social.links} />
+</BaseLayout>

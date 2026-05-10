@@ -4,11 +4,14 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { withBase } from '../../lib/paths';
 import { truncateSummary } from '../../lib/truncate';
+import { getSettings } from '../../lib/settings';
 
-const entries = (await getCollection('archive')).sort((a, b) => {
-  if (b.data.year !== a.data.year) return b.data.year - a.data.year;
-  return a.data.order - b.data.order;
-});
+const settings = getSettings();
+const currentYear = settings.current_year;
+
+const entries = (await getCollection('project'))
+  .filter(p => p.data.year !== currentYear)
+  .sort((a, b) => b.data.year - a.data.year);
 
 const pageTitle = 'Past Teams & Projects | iGEM Okinawa';
 const pageDescription =
@@ -27,35 +30,31 @@ const pageDescription =
         <a href={withBase('')} class="archive-back-link">← Back to Home</a>
       </p>
 
-      <div class="archive-page-grid">
+      <div class="archive-page-grid" style="display: grid; gap: 2rem; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
         {
           entries.map((entry) => {
             const wiki = entry.data.wiki_url?.trim();
-            const uni = entry.data.universities?.trim();
             return (
-              <article class="card archive-card">
+              <article class="card archive-card" style="background: white; border-radius: var(--border-radius-lg); padding: 1.5rem; box-shadow: var(--shadow-sm);">
                 <div class="card-content">
-                  <span class="archive-year-badge">{entry.data.year}</span>
-                  <h3>{entry.data.title}</h3>
-                  <p class="archive-card-summary">{truncateSummary(entry.data.summary)}</p>
-                  {uni && (
-                    <p class="archive-universities">
-                      <span class="archive-universities-label">Universities:</span>
-                      {uni}
-                    </p>
-                  )}
-                  {wiki && (
-                    <p class="archive-card-actions">
+                  <span class="archive-year-badge" style="background: var(--color-primary); color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">{entry.data.year}</span>
+                  <h3 style="margin-top: 1rem; color: var(--color-text-heading);">{entry.data.title}</h3>
+                  <p class="archive-card-summary" style="margin-bottom: 1.5rem; color: var(--color-text-main);">{truncateSummary(entry.data.summary)}</p>
+                  
+                  <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <a href={withBase(`archive/${entry.data.year}/`)} class="btn btn-primary" style="font-size: 0.9rem; padding: 0.4rem 0.8rem;">View Details</a>
+                    {wiki && (
                       <a
                         href={wiki}
                         class="btn btn-outline-dark btn-archive-wiki"
                         target="_blank"
                         rel="noopener noreferrer"
+                        style="font-size: 0.9rem; padding: 0.4rem 0.8rem;"
                       >
                         Read Wiki
                       </a>
-                    </p>
-                  )}
+                    )}
+                  </div>
                 </div>
               </article>
             );

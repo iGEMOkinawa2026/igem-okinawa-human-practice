@@ -4,60 +4,59 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { withBase } from '../../../lib/paths';
 import { truncateSummary } from '../../../lib/truncate';
+import { getSettings } from '../../../lib/settings';
 
-const entries = (await getCollection('archive')).sort((a, b) => {
-  if (b.data.year !== a.data.year) return b.data.year - a.data.year;
-  return a.data.order - b.data.order;
-});
+const settings = getSettings();
+const currentYear = settings.current_year;
 
-const pageTitle = '過去のチーム・プロジェクト | iGEM沖縄';
+const entries = (await getCollection('project'))
+  .filter(p => p.data.year !== currentYear)
+  .sort((a, b) => b.data.year - a.data.year);
+
+const pageTitle = 'これまでの活動 | iGEM Okinawa';
 const pageDescription =
-  'iGEM沖縄の過去のチーム、プロジェクト、大会への取り組みをご覧いただけます。';
+  'iGEM Okinawaの過去のチーム、プロジェクト、大会結果をご紹介します。';
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} lang="ja">
   <main class="section section-alt">
     <div class="container">
       <header class="archive-page-header">
-        <h1>過去のチーム・プロジェクト</h1>
-        <p class="subtitle">毎年、iGEM Okinawaは新しい課題に挑みます。</p>
+        <h1>これまでの活動</h1>
+        <p class="subtitle">iGEM Okinawaは毎年新たな挑戦を続けています。</p>
       </header>
 
       <p class="archive-page-back">
         <a href={withBase('ja/')} class="archive-back-link">← ホームに戻る</a>
       </p>
 
-      <div class="archive-page-grid">
+      <div class="archive-page-grid" style="display: grid; gap: 2rem; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
         {
           entries.map((entry) => {
-            const title = entry.data.title_ja ?? entry.data.title;
-            const summaryRaw = entry.data.summary_ja ?? entry.data.summary;
             const wiki = entry.data.wiki_url?.trim();
-            const uni = entry.data.universities?.trim();
+            const title = entry.data.title_ja || entry.data.title;
+            const summary = entry.data.summary_ja || entry.data.summary;
             return (
-              <article class="card archive-card">
+              <article class="card archive-card" style="background: white; border-radius: var(--border-radius-lg); padding: 1.5rem; box-shadow: var(--shadow-sm);">
                 <div class="card-content">
-                  <span class="archive-year-badge">{entry.data.year}</span>
-                  <h3>{title}</h3>
-                  <p class="archive-card-summary">{truncateSummary(summaryRaw)}</p>
-                  {uni && (
-                    <p class="archive-universities">
-                      <span class="archive-universities-label">参加大学：</span>
-                      {uni}
-                    </p>
-                  )}
-                  {wiki && (
-                    <p class="archive-card-actions">
+                  <span class="archive-year-badge" style="background: var(--color-primary); color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">{entry.data.year}</span>
+                  <h3 style="margin-top: 1rem; color: var(--color-text-heading);">{title}</h3>
+                  <p class="archive-card-summary" style="margin-bottom: 1.5rem; color: var(--color-text-main);">{truncateSummary(summary)}</p>
+                  
+                  <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <a href={withBase(`ja/archive/${entry.data.year}/`)} class="btn btn-primary" style="font-size: 0.9rem; padding: 0.4rem 0.8rem;">詳細を見る</a>
+                    {wiki && (
                       <a
                         href={wiki}
                         class="btn btn-outline-dark btn-archive-wiki"
                         target="_blank"
                         rel="noopener noreferrer"
+                        style="font-size: 0.9rem; padding: 0.4rem 0.8rem;"
                       >
-                        Wikiを見る
+                        Wikiを読む
                       </a>
-                    </p>
-                  )}
+                    )}
+                  </div>
                 </div>
               </article>
             );

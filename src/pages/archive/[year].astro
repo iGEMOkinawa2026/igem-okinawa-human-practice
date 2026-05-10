@@ -1,0 +1,80 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { siteCopy } from '../../data/siteCopy';
+import { getMainNav } from '../../data/navigation';
+import { withBase } from '../../lib/paths';
+import YAML from 'yaml';
+import socialRaw from '../../data/social.yaml?raw';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('project');
+  return projects.map((project) => ({
+    params: { year: project.data.year.toString() },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { year } = Astro.params;
+
+const social = YAML.parse(socialRaw) as any;
+const copy = siteCopy.en;
+const navItems = getMainNav('en');
+const footerLinks = navItems.map((item) => ({
+  label: item.label,
+  href: item.href,
+}));
+---
+
+<BaseLayout title={`Project ${year} - ${copy.page.title}`} description={project.data.summary} lang="en">
+  <Header
+    siteTitle={copy.header.siteTitle}
+    logoHref={withBase('')}
+    navItems={navItems}
+    enHref={withBase(`archive/${year}/`)}
+    jaHref={withBase(`ja/archive/${year}/`)}
+    activeLang="en"
+    menuToggleLabel={copy.header.menuToggleLabel}
+  />
+  <main class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom: 3rem;">
+        <span class="project-year-badge">Project {year}</span>
+        <h1 style="color: var(--color-primary); margin-top: 1rem;">{project.data.title}</h1>
+      </div>
+      
+      {project.data.image && (
+        <img src={withBase(project.data.image)} alt={project.data.title} style="width: 100%; border-radius: var(--border-radius-lg); margin-bottom: 2rem;" />
+      )}
+      
+      <div class="content" style="max-width: 800px; margin: 0 auto; font-size: 1.125rem; line-height: 1.8;">
+        <p>{project.data.summary}</p>
+        {project.data.description && <p>{project.data.description}</p>}
+        
+        {project.data.wiki_url && (
+          <div style="margin-top: 2rem; text-align: center;">
+            <a href={project.data.wiki_url} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              Visit Official iGEM Wiki
+            </a>
+          </div>
+        )}
+      </div>
+    </div>
+  </main>
+  <Footer brandTitle={copy.footer.brandTitle} brandTagline={copy.footer.brandTagline} exploreHeading={copy.footer.exploreHeading} exploreLinks={footerLinks} connectHeading={copy.footer.connectHeading} copyrightLine={copy.footer.copyrightLine} privacyHref={copy.footer.privacyHref} privacyLabel={copy.footer.privacyLabel} termsHref={copy.footer.termsHref} termsLabel={copy.footer.termsLabel} socialLinks={social.links} />
+</BaseLayout>
+
+<style>
+  .project-year-badge {
+    background: var(--color-primary);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+</style>

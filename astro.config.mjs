@@ -4,4 +4,8 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   site: 'https://iGEMOkinawa2026.github.io',
   base: '/igem-okinawa-human-practice/',
+  redirects: {
+    '/human-practice': '/activities/human-practice',
+    '/ja/human-practice': '/ja/activities/human-practice'
+  }
 });

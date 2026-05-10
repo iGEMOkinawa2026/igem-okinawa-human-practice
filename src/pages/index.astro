@@ -11,8 +11,15 @@ import Footer from '../components/Footer.astro';
 import { siteCopy } from '../data/siteCopy';
 import { getMainNav } from '../data/navigation';
 import { withBase } from '../lib/paths';
+import { getEntry } from 'astro:content';
+import { getSettings } from '../lib/settings';
 
 import socialRaw from '../data/social.yaml?raw';
+
+const settings = getSettings();
+const currentYear = settings.current_year;
+const currentProject = await getEntry('project', currentYear.toString());
+
 
 const social = YAML.parse(socialRaw) as {
   links: { platform: string; url: string; shortLabel?: string }[];
@@ -85,26 +92,31 @@ const footerLinks = navItems.map((item) => ({
     <!-- Project Preview -->
     <section class="section">
       <div class="container">
-        <div class="project-preview-container">
-          <div class="project-preview-text">
-            <h2>Current Project: 2026</h2>
-            <p class="project-preview-tag">AI × Biology</p>
-            <p>
-              We are engineering <strong>low-pH resistant bacteriophages</strong>
-              to combat AMR pathogens — Salmonella, ETEC, and H. pylori — that
-              devastate both human health and Okinawa's agricultural industry.
-              Using an AI-based pipeline, we predict and validate phage protein
-              variants effective in the acidic environment of the stomach.
-            </p>
-            <a href={withBase('project/2026/')} class="btn btn-primary">Read More</a>
-          </div>
-          <div class="project-preview-visual">
-            <!-- EDIT: 画像が用意できたら img タグに差し替える -->
-            <div class="dna-graphic-placeholder">
-              🦠 Phage × AI
+        {currentProject ? (
+          <div class="project-preview-container">
+            <div class="project-preview-text">
+              <h2>Current Project: {currentYear}</h2>
+              <p class="project-preview-tag">{currentProject.data.title}</p>
+              <p>
+                {currentProject.data.summary}
+              </p>
+              <a href={withBase(`archive/${currentYear}/`)} class="btn btn-primary">Read More</a>
+            </div>
+            <div class="project-preview-visual">
+              {currentProject.data.image ? (
+                <img src={withBase(currentProject.data.image)} alt={currentProject.data.title} style="width:100%; border-radius: var(--border-radius-md);" />
+              ) : (
+                <div class="dna-graphic-placeholder" style="background: var(--color-sub2, #6A9BD6); color: white; padding: 2rem; border-radius: var(--border-radius-md); text-align: center;">
+                  🧬 {currentProject.data.title}
+                </div>
+              )}
             </div>
           </div>
-        </div>
+        ) : (
+          <div class="text-center">
+            <p>Current project information is not available.</p>
+          </div>
+        )}
       </div>
     </section>
 
@@ -249,7 +261,7 @@ const footerLinks = navItems.map((item) => ({
     right: -20%;
     width: 80%;
     height: 200%;
-    background: radial-gradient(circle, rgba(66, 87, 166, 0.05) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(63, 209, 199, 0.1) 0%, transparent 70%);
     border-radius: 50%;
     z-index: 0;
   }

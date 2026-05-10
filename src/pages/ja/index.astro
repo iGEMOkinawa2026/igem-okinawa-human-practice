@@ -11,8 +11,15 @@ import Footer from '../../components/Footer.astro';
 import { siteCopy } from '../../data/siteCopy';
 import { getMainNav } from '../../data/navigation';
 import { withBase } from '../../lib/paths';
+import { getEntry } from 'astro:content';
+import { getSettings } from '../../lib/settings';
 
 import socialRaw from '../../data/social.yaml?raw';
+
+const settings = getSettings();
+const currentYear = settings.current_year;
+const currentProject = await getEntry('project', currentYear.toString());
+
 
 const social = YAML.parse(socialRaw) as {
   links: { platform: string; url: string; shortLabel?: string }[];
@@ -86,26 +93,31 @@ const footerLinks = navItems.map((item) => ({
     <!-- Project Preview -->
     <section class="section">
       <div class="container">
-        <div class="project-preview-container">
-          <div class="project-preview-text">
-            <h2>最新の取り組み: 2026</h2>
-            <p class="project-preview-tag">AI × Biology</p>
-            <p>
-              私たちは、<strong>低pH耐性バクテリオファージ</strong>
-              を開発し、人々の健康と沖縄の農業産業に甚大な被害をもたらしている
-              AMR病原体（サルモネラ菌、ETEC、ピロリ菌）と戦っています。
-              AIを活用したパイプラインを用いて、胃の酸性環境下で
-              効果を発揮するファージタンパク質の変異体を予測・検証しています。
-            </p>
-            <a href={withBase('project/2026/')} class="btn btn-primary">続きを読む</a>
-          </div>
-          <div class="project-preview-visual">
-            <!-- EDIT: 画像が用意できたら img タグに差し替える -->
-            <div class="dna-graphic-placeholder">
-              🦠 Phage × AI
+        {currentProject ? (
+          <div class="project-preview-container">
+            <div class="project-preview-text">
+              <h2>最新の取り組み: {currentYear}</h2>
+              <p class="project-preview-tag">{currentProject.data.title_ja || currentProject.data.title}</p>
+              <p>
+                {currentProject.data.summary_ja || currentProject.data.summary}
+              </p>
+              <a href={withBase(`ja/archive/${currentYear}/`)} class="btn btn-primary">続きを読む</a>
+            </div>
+            <div class="project-preview-visual">
+              {currentProject.data.image ? (
+                <img src={withBase(currentProject.data.image)} alt={currentProject.data.title_ja || currentProject.data.title} style="width:100%; border-radius: var(--border-radius-md);" />
+              ) : (
+                <div class="dna-graphic-placeholder" style="background: var(--color-sub2, #6A9BD6); color: white; padding: 2rem; border-radius: var(--border-radius-md); text-align: center;">
+                  🧬 {currentProject.data.title_ja || currentProject.data.title}
+                </div>
+              )}
             </div>
           </div>
-        </div>
+        ) : (
+          <div class="text-center">
+            <p>プロジェクト情報がありません。</p>
+          </div>
+        )}
       </div>
     </section>
 
@@ -201,7 +213,7 @@ const footerLinks = navItems.map((item) => ({
     right: -20%;
     width: 80%;
     height: 200%;
-    background: radial-gradient(circle, rgba(66, 87, 166, 0.05) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(63, 209, 199, 0.1) 0%, transparent 70%);
     border-radius: 50%;
     z-index: 0;
   }

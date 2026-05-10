@@ -184,3 +184,129 @@ content:
         label: Sort order
         type: number
         required: false
+
+  - name: project
+    label: Projects
+    type: collection
+    path: src/content/project
+    format: yaml-frontmatter
+    filename: "{year}.md"
+    view:
+      primary: year
+      sort:
+        - year
+      default:
+        sort: year
+        order: desc
+    fields:
+      - name: year
+        label: Year
+        type: number
+        required: true
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: title_ja
+        label: Title (Japanese)
+        type: string
+        required: false
+      - name: summary
+        label: Summary
+        type: text
+        required: true
+      - name: summary_ja
+        label: Summary (Japanese)
+        type: text
+        required: false
+      - name: description
+        label: Description
+        type: text
+        required: false
+      - name: description_ja
+        label: Description (Japanese)
+        type: text
+        required: false
+      - name: wiki_url
+        label: Wiki URL
+        type: string
+        required: false
+      - name: image
+        label: Image
+        type: image
+        required: false
+
+  - name: members
+    label: Team Members
+    type: collection
+    path: src/content/members
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      primary: name
+      sort:
+        - order
+        - name
+      default:
+        sort: order
+        order: asc
+    fields:
+      - name: name
+        label: Name
+        type: string
+        required: true
+      - name: name_ja
+        label: Name (Japanese)
+        type: string
+        required: false
+      - name: role
+        label: Role
+        type: string
+        required: true
+      - name: role_ja
+        label: Role (Japanese)
+        type: string
+        required: false
+      - name: team
+        label: Team
+        type: select
+        required: true
+        options:
+          values:
+            - name: wet
+              label: Wet Lab
+            - name: dry
+              label: Dry Lab
+            - name: human practice
+              label: Human Practice
+            - name: funding
+              label: Funding
+            - name: wiki-video
+              label: Wiki & Video
+      - name: institution
+        label: Institution
+        type: string
+        required: false
+      - name: institution_ja
+        label: Institution (Japanese)
+        type: string
+        required: false
+      - name: image
+        label: Image
+        type: image
+        required: false
+      - name: order
+        label: Sort Order
+        type: number
+        required: false
+
+  - name: settings
+    label: Global Settings
+    type: file
+    path: src/data/settings.yaml
+    format: yaml
+    fields:
+      - name: current_year
+        label: Current Project Year
+        type: number
+        required: true

@@ -55,9 +55,43 @@ const humanPractice = defineCollection({
   }),
 });
 
+const members = defineCollection({
+  type: 'content',
+  schema: z.object({
+    name: z.string(),
+    name_ja: z.string().optional(),
+    role: z.string(),
+    role_ja: z.string().optional(),
+    team: z.enum(['wet', 'dry', 'human practice', 'funding', 'wiki-video']),
+    image: z.string().optional(),
+    bio: z.string().optional(),
+    bio_ja: z.string().optional(),
+    institution: z.string().optional(),
+    institution_ja: z.string().optional(),
+    order: z.number().default(0),
+  }),
+});
+
+const project = defineCollection({
+  type: 'content',
+  schema: z.object({
+    year: z.number(),
+    title: z.string(),
+    title_ja: z.string().optional(),
+    summary: z.string(),
+    summary_ja: z.string().optional(),
+    wiki_url: z.string().optional(),
+    image: z.string().optional(),
+    description: z.string().optional(),
+    description_ja: z.string().optional(),
+  }),
+});
+
 export const collections = {
   activities,
   sponsors,
   archive,
   'human-practice': humanPractice,
+  members,
+  project,
 };
