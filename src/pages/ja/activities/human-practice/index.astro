@@ -3,10 +3,10 @@
  * Human Practice Hub Page (JA)
  */
 import { getCollection } from 'astro:content';
-import PageLayout from '../../../layouts/PageLayout.astro';
-import PageHero from '../../../components/PageHero.astro';
-import { getHpNav } from '../../../data/navigation';
-import { withBase } from '../../../lib/paths';
+import PageLayout from '../../../../layouts/PageLayout.astro';
+import PageHero from '../../../../components/PageHero.astro';
+import { getHpNav } from '../../../../data/navigation';
+import { withBase } from '../../../../lib/paths';
 
 const hpNav = getHpNav('ja');
 const hpEntries = (await getCollection('human-practice')).sort(

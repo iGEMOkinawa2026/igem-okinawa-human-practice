@@ -1,12 +1,12 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import { siteCopy } from '../../data/siteCopy';
-import { getMainNav } from '../../data/navigation';
-import { withBase } from '../../lib/paths';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import { siteCopy } from '../../../data/siteCopy';
+import { getMainNav } from '../../../data/navigation';
+import { withBase } from '../../../lib/paths';
 import YAML from 'yaml';
-import socialRaw from '../../data/social.yaml?raw';
+import socialRaw from '../../../data/social.yaml?raw';
 
 const social = YAML.parse(socialRaw) as any;
 const copy = siteCopy.ja;

@@ -3,8 +3,10 @@
  * Human Practice Sub-page (EN) — dynamic route
  * Renders each HP section from Markdown content
  */
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import HumanPracticeLayout from '../../../layouts/HumanPracticeLayout.astro';
+const { entry } = Astro.props;
+const { Content } = await render(entry);
 
 export async function getStaticPaths() {
   const entries = await getCollection('human-practice');
@@ -14,8 +16,6 @@ export async function getStaticPaths() {
   }));
 }
 
-const { entry } = Astro.props;
-const { Content } = await entry.render();
 ---
 
 <HumanPracticeLayout
