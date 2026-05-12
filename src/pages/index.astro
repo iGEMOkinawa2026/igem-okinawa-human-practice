@@ -56,23 +56,21 @@ const footerLinks = navItems.map((item) => ({
   <main>
     <!-- Hero Section -->
     <section class="portal-hero">
-      <div class="portal-hero-inner">
-        <!-- left shisa -->
-        <div class="portal-shisa portal-shisa-left" aria-hidden="true">
-          <img src={withBase('shisa_left.PNG')} alt="" width="280" height="280" loading="eager" />
-        </div>
-
-        <div class="container text-center portal-hero-content">
+      <div class="container text-center portal-hero-content">
+        <div class="portal-hero-title-wrapper">
+          <!-- left shisa -->
+          <div class="portal-shisa portal-shisa-left" aria-hidden="true">
+            <img src={withBase('shisa_left.PNG')} alt="" width="280" height="280" loading="eager" />
+          </div>
           <h1 class="portal-hero-title">iGEM <strong>Okinawa</strong></h1>
-          <p class="portal-hero-slogan">Creating the Future Through Synthetic Biology.</p>
-          <div class="portal-hero-actions">
-            <a href="#about" class="btn btn-primary btn-large">Discover Our Mission</a>
+          <!-- right shisa -->
+          <div class="portal-shisa portal-shisa-right" aria-hidden="true">
+            <img src={withBase('shisa_right.PNG')} alt="" width="280" height="280" loading="eager" />
           </div>
         </div>
-
-        <!-- right shisa -->
-        <div class="portal-shisa portal-shisa-right" aria-hidden="true">
-          <img src={withBase('shisa_right.PNG')} alt="" width="280" height="280" loading="eager" />
+        <p class="portal-hero-slogan">Creating the Future Through Synthetic Biology.</p>
+        <div class="portal-hero-actions">
+          <a href="#about" class="btn btn-primary btn-large">Discover Our Mission</a>
         </div>
       </div>
     </section>
@@ -215,22 +213,23 @@ const footerLinks = navItems.map((item) => ({
             iGEM Okinawa runs entirely on the passion of students and the generosity of our supporters.
             Your donation funds lab supplies, travel to the jamboree, and the next generation of Okinawan science.
           </p>
-          <a href={withBase('support/')} class="btn btn-primary btn-large">Support iGEM Okinawa →</a>
+          <a href={withBase('support/')} class="btn btn-highlight btn-large">Support iGEM Okinawa →</a>
         </div>
       </div>
     </section>
 
 <style>
-  .portal-hero-inner {
+  .portal-hero-title-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     gap: clamp(0.5rem, 2vw, 2rem);
+    margin-bottom: 1rem;
   }
   .portal-shisa {
     flex-shrink: 0;
-    width: clamp(80px, 15vw, 240px);
+    width: clamp(60px, 15vw, 160px);
   }
   .portal-shisa img {
     width: 100%;
@@ -238,7 +237,7 @@ const footerLinks = navItems.map((item) => ({
     display: block;
   }
   @media (max-width: 480px) {
-    .portal-shisa { width: clamp(50px, 12vw, 80px); }
+    .portal-shisa { width: clamp(40px, 12vw, 60px); }
   }
   /* Team blocks */
   .team-blocks {
@@ -254,10 +253,12 @@ const footerLinks = navItems.map((item) => ({
     .team-blocks { grid-template-columns: repeat(3, 1fr); }
   }
   .team-block {
+    position: relative;
     background: var(--color-bg-base);
     border: 1px solid rgba(0,0,0,0.06);
     border-radius: var(--border-radius-lg);
     padding: 1.75rem;
+    padding-right: 5.5rem;
   }
   .team-block-header {
     display: flex;
@@ -266,10 +267,13 @@ const footerLinks = navItems.map((item) => ({
     margin-bottom: 0.75rem;
   }
   .team-block-icon {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-  margin-bottom: 0.75rem;
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin: 0;
   }
   .team-block h3 {
     font-size: 1.125rem;
@@ -335,8 +339,9 @@ const footerLinks = navItems.map((item) => ({
   .portal-hero-title {
     font-size: clamp(3rem, 2rem + 4vw, 5rem);
     color: var(--color-text-heading);
-    margin-bottom: 1rem;
+    margin-bottom: 0;
     letter-spacing: -1px;
+    line-height: 1.1;
   }
   .portal-hero-title strong {
     color: var(--color-primary);
@@ -390,7 +395,7 @@ const footerLinks = navItems.map((item) => ({
   }
 
   .support-cta {
-  background: linear-gradient(135deg, var(--color-primary, #3b5ea6) 0%, #1e3a8a 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, #2fa198 100%);
   padding-block: clamp(3rem, 6vw, 6rem);
   }
   .support-cta-inner {
@@ -416,13 +421,5 @@ const footerLinks = navItems.map((item) => ({
     margin-bottom: 2rem;
     max-width: 56ch;
     margin-inline: auto;
-  }
-  .support-cta .btn-primary {
-    background: #fff;
-    color: var(--color-primary, #3b5ea6);
-    font-weight: 700;
-  }
-  .support-cta .btn-primary:hover {
-    background: rgba(255,255,255,0.9);
   }
 </style>
