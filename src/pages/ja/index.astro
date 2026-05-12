@@ -16,6 +16,13 @@ import { getSettings } from '../../lib/settings';
 
 import socialRaw from '../../data/social.yaml?raw';
 
+import { Image } from 'astro:assets';
+import iconWet      from '../../assets/icon-wet.png';
+import iconDry      from '../../assets/icon-dry.png';
+import iconHp       from '../../assets/icon-hp.png';
+import iconFunding  from '../../assets/icon-funding.png';
+import iconWiki     from '../../assets/icon-wiki.png';
+
 const settings = getSettings();
 const currentYear = settings.current_year;
 const currentProject = await getEntry('project', currentYear.toString());
@@ -50,8 +57,18 @@ const footerLinks = navItems.map((item) => ({
   <main>
     <!-- Hero Section -->
     <section class="portal-hero">
-      <div class="container text-center">
-        <h1 class="portal-hero-title">iGEM <strong>Okinawa</strong></h1>
+      <div class="container text-center portal-hero-content">
+        <div class="portal-hero-title-wrapper">
+          <!-- left shisa -->
+          <div class="portal-shisa portal-shisa-left" aria-hidden="true">
+            <img src={withBase('shisa_left.PNG')} alt="" width="280" height="280" loading="eager" />
+          </div>
+          <h1 class="portal-hero-title">iGEM <strong>Okinawa</strong></h1>
+          <!-- right shisa -->
+          <div class="portal-shisa portal-shisa-right" aria-hidden="true">
+            <img src={withBase('shisa_right.PNG')} alt="" width="280" height="280" loading="eager" />
+          </div>
+        </div>
         <p class="portal-hero-slogan">合成生物学で未来を創造する</p>
         <div class="portal-hero-actions">
           <a href="#about" class="btn btn-primary btn-large">私たちの使命</a>
@@ -139,6 +156,7 @@ const footerLinks = navItems.map((item) => ({
               <span class="team-tag wet">Wet Lab</span>
               <h3>ウェットラボ</h3>
             </div>
+            <Image src={iconWet} alt="" width={60} height={60} loading="lazy" class="team-block-icon" />
             <p>すべての実験業務（ファージの単離、タンパク質工学、クローニング、およびAIが予測した変異体の実験室での検証）を担当します。</p>
           </div>
 
@@ -147,6 +165,7 @@ const footerLinks = navItems.map((item) => ({
               <span class="team-tag dry">Dry Lab</span>
               <h3>ドライラボ</h3>
             </div>
+            <Image src={iconDry} alt="" width={60} height={60} loading="lazy" class="team-block-icon" />
             <p>低pH耐性ファージタンパク質変異体の予測を行うAIベースのパイプラインを構築・運用する。計算モデリングおよびデータ分析を担当する。</p>
           </div>
 
@@ -155,6 +174,7 @@ const footerLinks = navItems.map((item) => ({
               <span class="team-tag hp">Human Practice</span>
               <h3>ヒューマンプラクティス</h3>
             </div>
+            <Image src={iconHp} alt="" width={60} height={60} loading="lazy" class="team-block-icon" />
             <p>私たちの科学を社会と結びつける――地元の農家、医療従事者、地域社会と連携し、私たちの活動が真のニーズに応えるよう努めています。</p>
           </div>
 
@@ -163,6 +183,7 @@ const footerLinks = navItems.map((item) => ({
               <span class="team-tag funding">Funding</span>
               <h3>ファンディング</h3>
             </div>
+            <Image src={iconFunding} alt="" width={60} height={60} loading="lazy" class="team-block-icon" />
             <p>研究活動および国際大会への参加を維持するため、スポンサー開拓、寄付キャンペーン、および財務計画の管理を行っています。</p>
           </div>
 
@@ -171,6 +192,7 @@ const footerLinks = navItems.map((item) => ({
               <span class="team-tag wiki">Wiki / Video</span>
               <h3>Wiki / Video</h3>
             </div>
+            <Image src={iconWiki} alt="" width={60} height={60} loading="lazy" class="team-block-icon" />
             <p>iGEM Wiki、プロモーション動画、そしてこのウェブサイトを通じて、私たちの研究成果を記録・発信し、世界中の人々が私たちの活動にアクセスできるようにしています。</p>
           </div>
 
@@ -178,6 +200,21 @@ const footerLinks = navItems.map((item) => ({
 
         <div class="text-center" style="margin-top: 3rem;">
           <a href={withBase('ja/about/')} class="btn btn-primary">チーム全員のご紹介</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Support / Donation CTA Section -->
+    <section class="section support-cta">
+      <div class="container text-center">
+        <div class="support-cta-inner">
+          <p class="support-cta-eyebrow">ご支援のお願い</p>
+          <h2 class="support-cta-heading">Paris 2026への挑戦をサポートしてください</h2>
+          <p class="support-cta-body">
+            iGEM Okinawaの活動は、学生の情熱と皆様からのご支援によって成り立っています。
+            いただいた寄付は、実験機材の調達や大会への渡航費、そして次世代の沖縄の科学振興に活用されます。
+          </p>
+          <a href={withBase('ja/support/')} class="btn btn-highlight btn-large">iGEM Okinawa を支援する →</a>
         </div>
       </div>
     </section>
@@ -221,11 +258,32 @@ const footerLinks = navItems.map((item) => ({
     position: relative;
     z-index: 1;
   }
+  .portal-hero-title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: clamp(0.5rem, 2vw, 2rem);
+    margin-bottom: 1rem;
+  }
+  .portal-shisa {
+    flex-shrink: 0;
+    width: clamp(60px, 15vw, 160px);
+  }
+  .portal-shisa img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  @media (max-width: 480px) {
+    .portal-shisa { width: clamp(40px, 12vw, 60px); }
+  }
   .portal-hero-title {
     font-size: clamp(3rem, 2rem + 4vw, 5rem);
     color: var(--color-text-heading);
-    margin-bottom: 1rem;
+    margin-bottom: 0;
     letter-spacing: -1px;
+    line-height: 1.1;
   }
   .portal-hero-title strong {
     color: var(--color-primary);
@@ -291,16 +349,27 @@ const footerLinks = navItems.map((item) => ({
     .team-blocks { grid-template-columns: repeat(3, 1fr); }
   }
   .team-block {
+    position: relative;
     background: var(--color-bg-base);
     border: 1px solid rgba(0,0,0,0.06);
     border-radius: var(--border-radius-lg);
     padding: 1.75rem;
+    padding-right: 5.5rem;
   }
   .team-block-header {
     display: flex;
     align-items: center;
     gap: 0.75rem;
     margin-bottom: 0.75rem;
+  }
+  .team-block-icon {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin: 0;
   }
   .team-block h3 {
     font-size: 1.125rem;
@@ -373,5 +442,34 @@ const footerLinks = navItems.map((item) => ({
     font-size: 1.125rem;
     color: var(--color-text-heading);
     margin-bottom: 0.75rem;
+  }
+
+  .support-cta {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #2fa198 100%);
+  padding-block: clamp(3rem, 6vw, 6rem);
+  }
+  .support-cta-inner {
+    max-width: 640px;
+    margin-inline: auto;
+  }
+  .support-cta-eyebrow {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 0.75rem;
+  }
+  .support-cta-heading {
+    font-size: clamp(1.75rem, 2rem + 1vw, 2.75rem);
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+  .support-cta-body {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 2rem;
+    max-width: 56ch;
+    margin-inline: auto;
   }
 </style>
