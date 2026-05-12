@@ -16,6 +16,13 @@ import { getSettings } from '../lib/settings';
 
 import socialRaw from '../data/social.yaml?raw';
 
+import { Image } from 'astro:assets';
+import iconWet      from '../assets/icon-wet.png';
+import iconDry      from '../assets/icon-dry.png';
+import iconHp       from '../assets/icon-hp.png';
+import iconFunding  from '../assets/icon-funding.png';
+import iconWiki     from '../assets/icon-wiki.png';
+
 const settings = getSettings();
 const currentYear = settings.current_year;
 const currentProject = await getEntry('project', currentYear.toString());
@@ -121,7 +128,6 @@ const footerLinks = navItems.map((item) => ({
     </section>
 
     <!-- Team Section -->
-    <!-- EDIT: チーム説明文・メンバー数はここを直接編集 -->
     <section class="section section-alt">
       <div class="container">
         <div class="section-header text-center">
@@ -139,6 +145,7 @@ const footerLinks = navItems.map((item) => ({
               <span class="team-tag wet">Wet Lab</span>
               <h3>Wet Lab</h3>
             </div>
+            <Image src={iconWet} alt="Wet Lab icon" width={80} height={80} loading="lazy" class="team-block-icon" />
             <p>Responsible for all experimental work — phage isolation, protein engineering, cloning, and lab validation of AI-predicted variants.</p>
           </div>
 
@@ -147,6 +154,7 @@ const footerLinks = navItems.map((item) => ({
               <span class="team-tag dry">Dry Lab</span>
               <h3>Dry Lab</h3>
             </div>
+            <Image src={iconDry} alt="Dry Lab icon" width={80} height={80} loading="lazy" class="team-block-icon" />
             <p>Builds and runs the AI-based pipeline for predicting low-pH resistant phage protein variants. Handles computational modeling and data analysis.</p>
           </div>
 
@@ -155,6 +163,7 @@ const footerLinks = navItems.map((item) => ({
               <span class="team-tag hp">Human Practice</span>
               <h3>Human Practice</h3>
             </div>
+            <Image src={iconHp} alt="Human Practice icon" width={80} height={80} loading="lazy" class="team-block-icon" />
             <p>Connects our science to society — engaging with local farmers, medical professionals, and communities to ensure our work addresses real needs.</p>
           </div>
 
@@ -163,6 +172,7 @@ const footerLinks = navItems.map((item) => ({
               <span class="team-tag funding">Funding</span>
               <h3>Funding</h3>
             </div>
+            <Image src={iconFunding} alt="Funding icon" width={80} height={80} loading="lazy" class="team-block-icon" />
             <p>Manages sponsorship outreach, donation campaigns, and financial planning to sustain our research and international competition entry.</p>
           </div>
 
@@ -171,6 +181,7 @@ const footerLinks = navItems.map((item) => ({
               <span class="team-tag wiki">Wiki / Video</span>
               <h3>Wiki / Video</h3>
             </div>
+            <Image src={iconWiki} alt="Wiki / Video icon" width={80} height={80} loading="lazy" class="team-block-icon" />
             <p>Documents and communicates our research through the iGEM Wiki, promotional videos, and this website — making our work accessible to the world.</p>
           </div>
 
@@ -207,6 +218,12 @@ const footerLinks = navItems.map((item) => ({
     align-items: center;
     gap: 0.75rem;
     margin-bottom: 0.75rem;
+  }
+  .team-block-icon {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 0.75rem;
   }
   .team-block h3 {
     font-size: 1.125rem;

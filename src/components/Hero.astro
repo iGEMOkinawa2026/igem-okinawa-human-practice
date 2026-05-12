@@ -1,7 +1,10 @@
 ---
+import { Image } from 'astro:assets';
+import shisaLeft from '../assets/shisa-left.png';
+import shisaRight from '../assets/shisa-right.png';
+
 interface Props {
   badgeText: string;
-  /** When true, badge avoids all-caps styling (better for Japanese). */
   badgeNatural?: boolean;
   headingPrefix: string;
   headingStrong: string;
@@ -14,6 +17,7 @@ interface Props {
   secondaryCtaHref: string;
   imagePlaceholderText: string;
 }
+
 const {
   badgeText,
   badgeNatural = false,
@@ -26,7 +30,6 @@ const {
   primaryCtaHref,
   secondaryCtaLabel,
   secondaryCtaHref,
-  imagePlaceholderText,
 } = Astro.props;
 
 const badgeClass = badgeNatural ? 'badge badge--natural' : 'badge';
@@ -34,23 +37,121 @@ const badgeClass = badgeNatural ? 'badge badge--natural' : 'badge';
 
 <section class="hero">
   <div class="hero-bg-accent"></div>
-  <div class="container hero-content">
-    <div class="hero-text">
-      <span class={badgeClass}>{badgeText}</span>
-      <h1>
-        {headingPrefix}<strong>{headingStrong}</strong><span class:list={['hero-heading-suffix', { 'hero-heading-suffix--small': headingSuffixSmall }]}>{headingSuffix}</span>
-      </h1>
-      <p>{lede}</p>
-      <div class="hero-actions">
-        <a href={primaryCtaHref} class="btn btn-primary">{primaryCtaLabel}</a>
-        <a href={secondaryCtaHref} class="btn btn-secondary">{secondaryCtaLabel}</a>
+
+  <div class="hero-inner">
+    <!-- left shisa-->
+    <div class="shisa shisa-left" aria-hidden="true">
+      <Image
+        src={shisaLeft}
+        alt=""
+        width={300}
+        height={300}
+        loading="eager"
+      />
+    </div>
+
+    <!-- hero-text -->
+    <div class="container hero-content">
+      <div class="hero-text">
+        <span class={badgeClass}>{badgeText}</span>
+        <h1>
+          {headingPrefix}<strong>{headingStrong}</strong><span
+            class:list={['hero-heading-suffix', { 'hero-heading-suffix--small': headingSuffixSmall }]}
+          >{headingSuffix}</span>
+        </h1>
+        <p>{lede}</p>
+        <div class="hero-actions">
+          <a href={primaryCtaHref} class="btn btn-primary">{primaryCtaLabel}</a>
+          <a href={secondaryCtaHref} class="btn btn-secondary">{secondaryCtaLabel}</a>
+        </div>
       </div>
     </div>
-    <div class="hero-image-wrapper">
-      <div class="hero-image-placeholder">
-        <span class="placeholder-text">{imagePlaceholderText}</span>
-      </div>
-      <div class="decoration-dots"></div>
+
+    <!-- right shisa -->
+    <div class="shisa shisa-right" aria-hidden="true">
+      <Image
+        src={shisaRight}
+        alt=""
+        width={300}
+        height={300}
+        loading="eager"
+      />
     </div>
   </div>
 </section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    min-height: 60vh;
+    padding-block: var(--space-16, 4rem);
+  }
+
+  .hero-bg-accent {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: clamp(1rem, 3vw, 3rem);
+    padding-inline: var(--space-4, 1rem);
+  }
+
+  .hero-content {
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+  }
+
+  .shisa {
+    flex-shrink: 0;
+    width: clamp(100px, 18vw, 300px);
+    opacity: 0;
+    animation: shisaIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .shisa img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .shisa-left  {
+    animation-delay: 0.15s;
+    transform: translateX(-40px);
+  }
+  .shisa-right {
+    animation-delay: 0.15s;
+    transform: translateX(40px);
+  }
+
+  @keyframes shisaIn {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .shisa { width: clamp(60px, 14vw, 100px); }
+    .hero-inner { gap: 0.5rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .shisa {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
