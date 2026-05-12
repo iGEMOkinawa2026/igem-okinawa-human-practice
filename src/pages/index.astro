@@ -56,11 +56,23 @@ const footerLinks = navItems.map((item) => ({
   <main>
     <!-- Hero Section -->
     <section class="portal-hero">
-      <div class="container text-center">
-        <h1 class="portal-hero-title">iGEM <strong>Okinawa</strong></h1>
-        <p class="portal-hero-slogan">Creating the Future Through Synthetic Biology.</p>
-        <div class="portal-hero-actions">
-          <a href="#about" class="btn btn-primary btn-large">Discover Our Mission</a>
+      <div class="portal-hero-inner">
+        <!-- left shisa -->
+        <div class="portal-shisa portal-shisa-left" aria-hidden="true">
+          <img src={withBase('shisa_left.PNG')} alt="" width="280" height="280" loading="eager" />
+        </div>
+
+        <div class="container text-center portal-hero-content">
+          <h1 class="portal-hero-title">iGEM <strong>Okinawa</strong></h1>
+          <p class="portal-hero-slogan">Creating the Future Through Synthetic Biology.</p>
+          <div class="portal-hero-actions">
+            <a href="#about" class="btn btn-primary btn-large">Discover Our Mission</a>
+          </div>
+        </div>
+
+        <!-- right shisa -->
+        <div class="portal-shisa portal-shisa-right" aria-hidden="true">
+          <img src={withBase('shisa_right.PNG')} alt="" width="280" height="280" loading="eager" />
         </div>
       </div>
     </section>
@@ -142,19 +154,19 @@ const footerLinks = navItems.map((item) => ({
 
           <div class="team-block">
             <div class="team-block-header">
-              <span class="team-tag wet">Wet Lab</span>
+              <span class="team-tag wet">Wet</span>
               <h3>Wet Lab</h3>
+              <Image src={iconWet} alt="" width={64} height={64} loading="lazy" class="team-block-icon" />
             </div>
-            <Image src={iconWet} alt="Wet Lab icon" width={80} height={80} loading="lazy" class="team-block-icon" />
             <p>Responsible for all experimental work — phage isolation, protein engineering, cloning, and lab validation of AI-predicted variants.</p>
           </div>
 
           <div class="team-block">
             <div class="team-block-header">
-              <span class="team-tag dry">Dry Lab</span>
+              <span class="team-tag dry">Dry</span>
               <h3>Dry Lab</h3>
+              <Image src={iconDry} alt="" width={64} height={64} loading="lazy" class="team-block-icon" />
             </div>
-            <Image src={iconDry} alt="Dry Lab icon" width={80} height={80} loading="lazy" class="team-block-icon" />
             <p>Builds and runs the AI-based pipeline for predicting low-pH resistant phage protein variants. Handles computational modeling and data analysis.</p>
           </div>
 
@@ -162,8 +174,8 @@ const footerLinks = navItems.map((item) => ({
             <div class="team-block-header">
               <span class="team-tag hp">Human Practice</span>
               <h3>Human Practice</h3>
+              <Image src={iconHp} alt="" width={64} height={64} loading="lazy" class="team-block-icon" />
             </div>
-            <Image src={iconHp} alt="Human Practice icon" width={80} height={80} loading="lazy" class="team-block-icon" />
             <p>Connects our science to society — engaging with local farmers, medical professionals, and communities to ensure our work addresses real needs.</p>
           </div>
 
@@ -171,8 +183,8 @@ const footerLinks = navItems.map((item) => ({
             <div class="team-block-header">
               <span class="team-tag funding">Funding</span>
               <h3>Funding</h3>
+              <Image src={iconFunding} alt="" width={64} height={64} loading="lazy" class="team-block-icon" />
             </div>
-            <Image src={iconFunding} alt="Funding icon" width={80} height={80} loading="lazy" class="team-block-icon" />
             <p>Manages sponsorship outreach, donation campaigns, and financial planning to sustain our research and international competition entry.</p>
           </div>
 
@@ -180,8 +192,8 @@ const footerLinks = navItems.map((item) => ({
             <div class="team-block-header">
               <span class="team-tag wiki">Wiki / Video</span>
               <h3>Wiki / Video</h3>
+              <Image src={iconWiki} alt="" width={64} height={64} loading="lazy" class="team-block-icon" />
             </div>
-            <Image src={iconWiki} alt="Wiki / Video icon" width={80} height={80} loading="lazy" class="team-block-icon" />
             <p>Documents and communicates our research through the iGEM Wiki, promotional videos, and this website — making our work accessible to the world.</p>
           </div>
 
@@ -193,7 +205,41 @@ const footerLinks = navItems.map((item) => ({
       </div>
     </section>
 
+    <!-- Support / Donation CTA Section -->
+    <section class="section support-cta">
+      <div class="container text-center">
+        <div class="support-cta-inner">
+          <p class="support-cta-eyebrow">Support Us</p>
+          <h2 class="support-cta-heading">Help Us Reach Paris 2026</h2>
+          <p class="support-cta-body">
+            iGEM Okinawa runs entirely on the passion of students and the generosity of our supporters.
+            Your donation funds lab supplies, travel to the jamboree, and the next generation of Okinawan science.
+          </p>
+          <a href={withBase('support/')} class="btn btn-primary btn-large">Support iGEM Okinawa →</a>
+        </div>
+      </div>
+    </section>
+
 <style>
+  .portal-hero-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: clamp(0.5rem, 2vw, 2rem);
+  }
+  .portal-shisa {
+    flex-shrink: 0;
+    width: clamp(80px, 15vw, 240px);
+  }
+  .portal-shisa img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  @media (max-width: 480px) {
+    .portal-shisa { width: clamp(50px, 12vw, 80px); }
+  }
   /* Team blocks */
   .team-blocks {
     display: grid;
@@ -341,5 +387,42 @@ const footerLinks = navItems.map((item) => ({
     .team-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
+  }
+
+  .support-cta {
+  background: linear-gradient(135deg, var(--color-primary, #3b5ea6) 0%, #1e3a8a 100%);
+  padding-block: clamp(3rem, 6vw, 6rem);
+  }
+  .support-cta-inner {
+    max-width: 640px;
+    margin-inline: auto;
+  }
+  .support-cta-eyebrow {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 0.75rem;
+  }
+  .support-cta-heading {
+    font-size: clamp(1.75rem, 2rem + 1vw, 2.75rem);
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+  .support-cta-body {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 2rem;
+    max-width: 56ch;
+    margin-inline: auto;
+  }
+  .support-cta .btn-primary {
+    background: #fff;
+    color: var(--color-primary, #3b5ea6);
+    font-weight: 700;
+  }
+  .support-cta .btn-primary:hover {
+    background: rgba(255,255,255,0.9);
   }
 </style>
