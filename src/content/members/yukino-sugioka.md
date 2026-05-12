@@ -6,5 +6,6 @@ role_ja: Wikiチームリーダー
 team: wiki-video
 institution: University of the Ryukyus
 institution_ja: 琉球大学
+image: /media/IMG_0268.jpg
 order: 1
 ---
