@@ -115,31 +115,13 @@ const badgeClass = badgeNatural ? 'badge badge--natural' : 'badge';
   }
 
   .shisa {
-    flex-shrink: 0;
-    width: clamp(100px, 18vw, 300px);
-    opacity: 0;
-    animation: shisaIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  flex-shrink: 0;
+  width: clamp(100px, 18vw, 300px);
   }
   .shisa img {
     width: 100%;
     height: auto;
     display: block;
-  }
-
-  .shisa-left  {
-    animation-delay: 0.15s;
-    transform: translateX(-40px);
-  }
-  .shisa-right {
-    animation-delay: 0.15s;
-    transform: translateX(40px);
-  }
-
-  @keyframes shisaIn {
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
   }
 
   @media (max-width: 480px) {
