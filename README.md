@@ -25,7 +25,10 @@ Welcome to the iGEM Okinawa normal homepage repository. This website is built wi
 
 ### 3. メンバーの追加と更新
 CMS で **Team Members** を開きます。
-- **新規追加**: 新しいメンバーを作成し、名前・役割・所属チーム（Wet, Dry, Fundingなど）を選択し、画像をアップロードします。
+- **新規追加**: 新しいメンバーを作成し、名前などの情報を入力します。
+- **リーダー設定**: `Is Leader?` のトグルをオンにすると、チームページの「Leadership」セクションに優先して表示されます。
+- **複数役割の兼任**: `Roles (Multiple)` で複数の役割（Wet Lab, Dry Lab, Leaderなど）にチェックを入れると、メンバーカードに複数のタグが表示されます。
+- **任意入力**: 役職名（Role）や旧Team（Team (Legacy)）の入力は任意（オプショナル）になりました。
 - **並び順**: `Sort Order` に数値を入力することで、表示順を調整できます（数値が小さい方が先）。
 
 ### 4. 日英の言語対応
