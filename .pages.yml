@@ -262,15 +262,15 @@ content:
       - name: role
         label: Role
         type: string
-        required: true
+        required: false
       - name: role_ja
         label: Role (Japanese)
         type: string
         required: false
       - name: team
-        label: Team
+        label: Team (Legacy)
         type: select
-        required: true
+        required: false
         options:
           values:
             - name: wet
@@ -283,6 +283,31 @@ content:
               label: Funding
             - name: wiki-video
               label: Wiki & Video
+      - name: roles
+        label: Roles (Multiple)
+        type: select
+        list: true
+        required: false
+        options:
+          values:
+            - name: wet
+              label: Wet Lab
+            - name: dry
+              label: Dry Lab
+            - name: human practice
+              label: Human Practice
+            - name: funding
+              label: Funding
+            - name: wiki-video
+              label: Wiki & Video
+            - name: leader
+              label: Leader
+            - name: advisor
+              label: Advisor
+      - name: is_leader
+        label: Is Leader?
+        type: boolean
+        required: false
       - name: institution
         label: Institution
         type: string

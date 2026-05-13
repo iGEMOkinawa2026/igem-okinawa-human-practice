@@ -60,9 +60,11 @@ const members = defineCollection({
   schema: z.object({
     name: z.string(),
     name_ja: z.string().optional(),
-    role: z.string(),
+    role: z.string().optional(),
     role_ja: z.string().optional(),
-    team: z.enum(['wet', 'dry', 'human practice', 'funding', 'wiki-video']),
+    team: z.enum(['wet', 'dry', 'human practice', 'funding', 'wiki-video']).optional(),
+    roles: z.array(z.string()).optional(),
+    is_leader: z.boolean().default(false),
     image: z.string().optional(),
     bio: z.string().optional(),
     bio_ja: z.string().optional(),

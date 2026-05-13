@@ -10,11 +10,18 @@ import YAML from 'yaml';
 import socialRaw from '../../../data/social.yaml?raw';
 
 const members = (await getCollection('members')).sort((a, b) => a.data.order - b.data.order);
-const wetTeam = members.filter(m => m.data.team === 'wet');
-const dryTeam = members.filter(m => m.data.team === 'dry');
-const hpTeam = members.filter(m => m.data.team === 'human practice');
-const fundingTeam = members.filter(m => m.data.team === 'funding');
-const wikiTeam = members.filter(m => m.data.team === 'wiki-video');
+const leaders = members.filter(m => m.data.is_leader);
+const others = members.filter(m => !m.data.is_leader);
+
+const renderTags = (member: any) => {
+  let tags: string[] = [];
+  if (member.data.roles && member.data.roles.length > 0) {
+    tags = member.data.roles;
+  } else if (member.data.team) {
+    tags = [member.data.team];
+  }
+  return tags.map((t: string) => `<span class="team-tag ${t.replace(' ', '-')}">${t}</span>`).join(' ');
+};
 
 const social = YAML.parse(socialRaw) as any;
 const copy = siteCopy.ja;
@@ -40,14 +47,11 @@ const footerLinks = navItems.map(i => ({ label: i.label, href: i.href }));
       </div>
 
       {[ 
-        { title: 'ウェットラボ (Wet Lab)', members: wetTeam, color: '#dbeafe', text: '#1e40af' },
-        { title: 'ドライラボ (Dry Lab)', members: dryTeam, color: '#dcfce7', text: '#166534' },
-        { title: 'ヒューマンプラクティス (Human Practice)', members: hpTeam, color: '#fef9c3', text: '#854d0e' },
-        { title: 'ファンディング (Funding)', members: fundingTeam, color: '#fce7f3', text: '#9d174d' },
-        { title: 'Wiki / Video', members: wikiTeam, color: '#ede9fe', text: '#5b21b6' }
+        { title: 'Leadership', members: leaders, color: 'var(--color-bg-alt)', text: 'var(--color-primary)' },
+        { title: 'Members', members: others, color: 'var(--color-bg-base)', text: 'var(--color-text-main)' }
       ].map(group => group.members.length > 0 && (
         <div style="margin-bottom: 4rem;">
-          <h2 style={`display: inline-block; padding: 0.5rem 1rem; border-radius: var(--border-radius-md); background: ${group.color}; color: ${group.text}; margin-bottom: 1.5rem;`}>
+          <h2 style={`display: inline-block; padding: 0.5rem 1rem; border-radius: var(--border-radius-md); background: ${group.color}; color: ${group.text}; margin-bottom: 1.5rem; border: 1px solid rgba(0,0,0,0.05);`}>
             {group.title}
           </h2>
           <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 2rem;">
@@ -61,8 +65,9 @@ const footerLinks = navItems.map(i => ({ label: i.label, href: i.href }));
                   )}
                 </div>
                 <h3 style="margin-bottom: 0.5rem; color: var(--color-text-heading);">{member.data.name_ja || member.data.name}</h3>
-                <p style="font-weight: 600; color: var(--color-primary); font-size: 0.9rem; margin-bottom: 0.5rem;">{member.data.role_ja || member.data.role}</p>
-                {(member.data.institution_ja || member.data.institution) && <p style="font-size: 0.85rem; color: var(--color-text-main); margin-bottom: 0;">{member.data.institution_ja || member.data.institution}</p>}
+                {(member.data.role_ja || member.data.role) && <p style="font-weight: 600; color: var(--color-primary); font-size: 0.9rem; margin-bottom: 0.5rem;">{member.data.role_ja || member.data.role}</p>}
+                {(member.data.institution_ja || member.data.institution) && <p style="font-size: 0.85rem; color: var(--color-text-main); margin-bottom: 0.5rem;">{member.data.institution_ja || member.data.institution}</p>}
+                <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-top: 0.75rem;" set:html={renderTags(member)}></div>
               </div>
             ))}
           </div>
@@ -72,3 +77,22 @@ const footerLinks = navItems.map(i => ({ label: i.label, href: i.href }));
   </main>
   <Footer brandTitle={copy.footer.brandTitle} brandTagline={copy.footer.brandTagline} exploreHeading={copy.footer.exploreHeading} exploreLinks={footerLinks} connectHeading={copy.footer.connectHeading} copyrightLine={copy.footer.copyrightLine} privacyHref={copy.footer.privacyHref} privacyLabel={copy.footer.privacyLabel} termsHref={copy.footer.termsHref} termsLabel={copy.footer.termsLabel} socialLinks={social.links} />
 </BaseLayout>
+
+<style>
+  .team-tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+  .team-tag.wet      { background: #dbeafe; color: #1e40af; }
+  .team-tag.dry      { background: #dcfce7; color: #166534; }
+  .team-tag.human-practice { background: #fef9c3; color: #854d0e; }
+  .team-tag.funding  { background: #fce7f3; color: #9d174d; }
+  .team-tag.wiki-video { background: #ede9fe; color: #5b21b6; }
+  .team-tag.leader   { background: #fee2e2; color: #b91c1c; }
+  .team-tag.advisor  { background: #e0e7ff; color: #4338ca; }
+</style>
