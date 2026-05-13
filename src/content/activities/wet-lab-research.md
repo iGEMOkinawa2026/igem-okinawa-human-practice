@@ -1,9 +1,9 @@
 ---
-title: Wet Lab Research
-title_ja: ウェットラボ研究
-description: Designing and assembling novel genetic circuits to detect marine pollutants efficiently in coastal waters.
-description_ja: 沿岸域の海洋汚染物質を効率的に検知する新規遺伝子回路の設計と組み立てに取り組んでいます。
-imagePlaceholder: "[ Project Image ]"
-imagePlaceholder_ja: "[ プロジェクト画像 ]"
-order: 1
+title: ETEC — High Piglet Mortality
+description: Enterotoxigenic E. coli (ETEC) is the primary cause of neonatal
+  scours in piglets, devastating breeding farm yields and causing massive
+  early-stage livestock mortality.
+title_ja: ETEC — 子豚の高い死亡率
+description_ja: 腸管毒素原性大腸菌（ETEC）は、新生子豚の下痢症の主要原因菌です。養豚場の生産性を大きく損ない、家畜の初期段階での大量死亡を引き起こします。
+order: 2
 ---
