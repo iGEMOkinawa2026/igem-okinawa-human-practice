@@ -1,9 +1,9 @@
 ---
-title: W
-description: Our wet lab team is currently designing the experimental framework
-  for the 2026 project. Details will be updated as the project progresses.
-title_ja: ウェットラボ研究
-description_ja: ウェットラボチームは、2026年プロジェクトの実験フレームワークを設計中です。進捗に合わせて随時更新します。
-imagePlaceholder: "[ Wet Lab Image ]"
+title: Salmonella — Food Safety & Swine Health
+description: A highly contagious bacteria causing severe gastrointestinal
+  disease in pigs. It degrades meat quality and is a leading cause of human
+  foodborne illness via contaminated supply chains.
+title_ja: サルモネラ菌 — 食品安全と養豚衛生
+description_ja: 豚に深刻な消化器疾患を引き起こす高い感染力を持つ細菌です。食肉の品質を低下させ、汚染されたサプライチェーンを通じてヒトの食中毒の主要原因となっています。
 order: 1
 ---
