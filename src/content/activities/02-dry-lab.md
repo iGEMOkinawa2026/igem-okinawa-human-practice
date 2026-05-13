@@ -1,8 +1,9 @@
 ---
-title: "Modeling & Dry Lab"
-title_ja: "モデリング・ドライラボ"
-description: "The dry lab team is building computational models and data pipelines to support the 2026 experimental design. Stay tuned for updates."
-description_ja: "ドライラボチームは、2026年の実験設計を支援するための計算モデルやデータパイプラインを構築中です。"
-imagePlaceholder: "[ Dry Lab Image ]"
-order: 2
+title: H. pylori — Stomach Cancer
+description: Helicobacter pylori infection causes gastritis, ulcers and stomach
+  cancer. About 50% of the world population is infected, though most will not
+  experience symptoms.
+title_ja: ピロリ菌 — 胃がん
+description_ja: ヘリコバクター・ピロリ菌への感染は、胃炎・胃潰瘍・胃がんを引き起こします。世界人口の約50%が感染していますが、多くの場合は無症状です。
+order: 3
 ---
