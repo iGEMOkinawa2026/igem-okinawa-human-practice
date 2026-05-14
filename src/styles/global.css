@@ -563,6 +563,11 @@ a.lang-btn:hover {
     border-radius: var(--border-radius-md);
     padding: 1.4rem 1.4rem 1.2rem;
     box-shadow: var(--shadow-hover);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
 }
 
 .activity-modal::backdrop {

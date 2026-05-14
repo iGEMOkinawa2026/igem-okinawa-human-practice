@@ -24,6 +24,49 @@ const sponsors = (await getCollection('sponsors')).sort(
     breadcrumbs={[{ label: 'ホーム', href: withBase('ja/') }]}
   />
 
+  <section class="section section-alt">
+    <div class="container">
+      <div class="support-info-grid">
+        <div class="info-card">
+          <h3>参加機関</h3>
+          <ul>
+            <li>沖縄工業高等専門学校（KOSEN）</li>
+            <li>沖縄科学技術大学院大学（OIST）</li>
+            <li>琉球大学</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>必要な資金</h3>
+          <ul>
+            <li><strong>チーム登録料:</strong> €8,700 EUR</li>
+            <li><strong>参加費:</strong> 1人あたり €575 EUR</li>
+            <li><strong>その他の費用:</strong> 渡航費、宿泊費、実験機材費、アウトリーチ活動費</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section text-center">
+    <div class="container">
+      <h2>寄付によるご支援</h2>
+      <p style="margin-bottom: 2rem;">以下の2つの支払い方法でご寄付を承っております。</p>
+      
+      <div class="payment-methods" style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap;">
+        <div class="payment-method-card" style="padding: 1.5rem; background: var(--color-bg-alt); border-radius: var(--border-radius-md); flex: 1; min-width: 250px;">
+          <h4>🏦 銀行振込（Bank Transfer）</h4>
+          <p>iGEM Okinawaの公式口座へ直接お振り込みいただけます。</p>
+        </div>
+        <div class="payment-method-card" style="padding: 1.5rem; background: var(--color-bg-alt); border-radius: var(--border-radius-md); flex: 1; min-width: 250px;">
+          <h4>💳 クレジットカード（Credit Card）</h4>
+          <p>OISTの寄付フォームを通じた、クレジットカード決済が可能です。</p>
+        </div>
+      </div>
+
+      <a href="https://forms.oist.jp/ja/form/donate-now" target="_blank" rel="noopener noreferrer" class="btn btn-highlight btn-large">Donate Now（寄付する）</a>
+    </div>
+  </section>
+
   <Support
     locale="ja"
     title="次世代の科学者を支える"
@@ -31,7 +74,35 @@ const sponsors = (await getCollection('sponsors')).sort(
     sponsorCtaHref="mailto:igem@oist.jp"
     sponsorCtaLabel="スポンサーになる"
     deckHref="#"
-    deckLabel="スポンサー資料を見る"
+    deckLabel="スポンサー資料 (Coming soon)"
     sponsors={sponsors}
   />
 </PageLayout>
+
+<style>
+  .support-info-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  @media (min-width: 768px) {
+    .support-info-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .info-card {
+    background: var(--color-bg-base);
+    padding: 2rem;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+  .info-card h3 {
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+  }
+  .info-card ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+  }
+  .info-card li {
+    margin-bottom: 0.5rem;
+  }
+</style>

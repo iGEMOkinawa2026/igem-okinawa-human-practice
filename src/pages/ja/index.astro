@@ -61,12 +61,12 @@ const footerLinks = navItems.map((item) => ({
         <div class="portal-hero-title-wrapper">
           <!-- left shisa -->
           <div class="portal-shisa portal-shisa-left" aria-hidden="true">
-            <img src={withBase('shisa_left.PNG')} alt="" width="280" height="280" loading="eager" />
+            <img src={withBase('shisa_left.PNG')} alt="" width="560" height="560" loading="eager" />
           </div>
           <h1 class="portal-hero-title">iGEM <strong>Okinawa</strong></h1>
           <!-- right shisa -->
           <div class="portal-shisa portal-shisa-right" aria-hidden="true">
-            <img src={withBase('shisa_right.PNG')} alt="" width="280" height="280" loading="eager" />
+            <img src={withBase('shisa_right.PNG')} alt="" width="560" height="560" loading="eager" />
           </div>
         </div>
         <p class="portal-hero-slogan">合成生物学で未来を創造する</p>
@@ -84,23 +84,23 @@ const footerLinks = navItems.map((item) => ({
             <p class="subtitle">私たちについて</p>
           </div>
           <div class="mission-grid">
-            <!-- card1: 実績 -->
+            <!-- card1: What is iGEM Okinawa -->
             <div class="mission-card">
-              <div class="icon">🏆</div>
-              <h3>2025 ゴールドメダル</h3>
-              <p>iGEMへ初出場した2025年、iGEM Okinawa はゴールドメダルを獲得しました。これは、チームが厳格な科学への取り組みと地域社会への貢献に尽力してきた証です。</p>
+              <div class="icon">🧬</div>
+              <h3>iGEM Okinawaとは？</h3>
+              <p>合成生物学を用いて社会課題に取り組む沖縄の学生チームです。沖縄の環境に根ざした独自の解決策を開発し、世界へと発信しています。</p>
             </div>
-            <!-- card2: チーム構成 -->
+            <!-- card2: 参加機関 -->
             <div class="mission-card">
               <div class="icon">🏫</div>
-              <h3>県内複数校の合同チーム</h3>
-              <p>OIST、沖縄高専、琉球大学の学生が集まり、ウェットラボ、ドライラボ、そしてヒューマンプラクティスなどの各分野における多様な専門知識を結集しています。</p>
+              <h3>3つの参加機関</h3>
+              <p>沖縄工業高等専門学校（KOSEN）、沖縄科学技術大学院大学（OIST）、琉球大学の学生が集まり、多様な専門知識を結集しています。</p>
             </div>
-            <!-- card3: 地域課題 -->
+            <!-- card3: ビジョン -->
             <div class="mission-card">
-              <div class="icon">🌾</div>
-              <h3>地域特有の課題、確かな成果</h3>
-              <p>私たちのプロジェクトは、沖縄ならではの環境に根ざしています。地元の農家や地域社会と直接連携し、合成生物学によるソリューションが、現実的で差し迫ったニーズに応えられるよう取り組んでいます。</p>
+              <div class="icon">🚀</div>
+              <h3>私たちのビジョン</h3>
+              <p>沖縄の次世代の科学者を育成し、地域の知恵とグローバルなイノベーションを橋渡しすることで、合成生物学を用いた持続可能な未来を築きます。</p>
             </div>
 
           </div>
@@ -114,7 +114,7 @@ const footerLinks = navItems.map((item) => ({
           <div class="project-preview-container">
             <div class="project-preview-text">
               <h2>最新の取り組み: {currentYear}</h2>
-              <p class="project-preview-tag">{currentProject.data.title_ja || currentProject.data.title}</p>
+              <h3 style="font-size: 1.75rem; font-weight: bold; color: var(--color-text-heading); margin-bottom: 1rem;">{currentProject.data.title_ja || currentProject.data.title}</h3>
               <p>
                 {currentProject.data.summary_ja || currentProject.data.summary}
               </p>
@@ -213,6 +213,8 @@ const footerLinks = navItems.map((item) => ({
           <p class="support-cta-body">
             iGEM Okinawaの活動は、学生の情熱と皆様からのご支援によって成り立っています。
             いただいた寄付は、実験機材の調達や大会への渡航費、そして次世代の沖縄の科学振興に活用されます。
+            <br/><br/>
+            スポンサーシップの詳細、寄付方法、ご支援の使途については、サポートページをご覧ください。
           </p>
           <a href={withBase('ja/support/')} class="btn btn-highlight btn-large">iGEM Okinawa を支援する →</a>
         </div>
@@ -268,7 +270,7 @@ const footerLinks = navItems.map((item) => ({
   }
   .portal-shisa {
     flex-shrink: 0;
-    width: clamp(60px, 15vw, 160px);
+    width: clamp(120px, 30vw, 320px);
   }
   .portal-shisa img {
     width: 100%;
@@ -276,7 +278,7 @@ const footerLinks = navItems.map((item) => ({
     display: block;
   }
   @media (max-width: 480px) {
-    .portal-shisa { width: clamp(40px, 12vw, 60px); }
+    .portal-shisa { width: clamp(80px, 24vw, 120px); }
   }
   .portal-hero-title {
     font-size: clamp(3rem, 2rem + 4vw, 5rem);

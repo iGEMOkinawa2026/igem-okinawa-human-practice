@@ -60,12 +60,12 @@ const footerLinks = navItems.map((item) => ({
         <div class="portal-hero-title-wrapper">
           <!-- left shisa -->
           <div class="portal-shisa portal-shisa-left" aria-hidden="true">
-            <img src={withBase('shisa_left.PNG')} alt="" width="280" height="280" loading="eager" />
+            <img src={withBase('shisa_left.PNG')} alt="" width="560" height="560" loading="eager" />
           </div>
           <h1 class="portal-hero-title">iGEM <strong>Okinawa</strong></h1>
           <!-- right shisa -->
           <div class="portal-shisa portal-shisa-right" aria-hidden="true">
-            <img src={withBase('shisa_right.PNG')} alt="" width="280" height="280" loading="eager" />
+            <img src={withBase('shisa_right.PNG')} alt="" width="560" height="560" loading="eager" />
           </div>
         </div>
         <p class="portal-hero-slogan">Creating the Future Through Synthetic Biology.</p>
@@ -83,23 +83,23 @@ const footerLinks = navItems.map((item) => ({
           <p class="subtitle">Who we are</p>
         </div>
         <div class="mission-grid">
-          <!-- card1: 実績 -->
+          <!-- card1: What is iGEM Okinawa -->
           <div class="mission-card">
-            <div class="icon">🏆</div>
-            <h3>2025 Gold Medal</h3>
-            <p>In our debut year at iGEM 2025, iGEM Okinawa earned a Gold Medal — a testament to the team's dedication to rigorous science and community engagement.</p>
+            <div class="icon">🧬</div>
+            <h3>What is iGEM Okinawa?</h3>
+            <p>We are a team of students from Okinawa tackling global challenges through synthetic biology, developing solutions rooted in our local environment.</p>
           </div>
-          <!-- card2: チーム構成 -->
+          <!-- card2: 参加機関 -->
           <div class="mission-card">
             <div class="icon">🏫</div>
-            <h3>Multi-School Joint Team</h3>
-            <p>We bring together students from OIST, NIT Okinawa College, and the University of the Ryukyus — combining diverse expertise across wet lab, dry lab, and human practice.</p>
+            <h3>3 Participating Institutions</h3>
+            <p>Our team brings together diverse talents from National Institute of Technology, Okinawa College (KOSEN), Okinawa Institute of Science and Technology (OIST), and University of the Ryukyus.</p>
           </div>
-          <!-- card3: 地域課題 -->
+          <!-- card3: ビジョン -->
           <div class="mission-card">
-            <div class="icon">🌾</div>
-            <h3>Local Challenges, Real Impact</h3>
-            <p>Our projects are rooted in Okinawa's unique environment. We work directly with local farmers and communities to ensure our synthetic biology solutions address real, pressing needs.</p>
+            <div class="icon">🚀</div>
+            <h3>Our Vision</h3>
+            <p>To empower the next generation of scientists in Okinawa, bridge local wisdom with global innovation, and build a sustainable future using synthetic biology.</p>
           </div>
 
         </div>
@@ -113,7 +113,7 @@ const footerLinks = navItems.map((item) => ({
           <div class="project-preview-container">
             <div class="project-preview-text">
               <h2>Current Project: {currentYear}</h2>
-              <p class="project-preview-tag">{currentProject.data.title}</p>
+              <h3 style="font-size: 1.75rem; font-weight: bold; color: var(--color-text-heading); margin-bottom: 1rem;">{currentProject.data.title}</h3>
               <p>
                 {currentProject.data.summary}
               </p>
@@ -212,6 +212,8 @@ const footerLinks = navItems.map((item) => ({
           <p class="support-cta-body">
             iGEM Okinawa runs entirely on the passion of students and the generosity of our supporters.
             Your donation funds lab supplies, travel to the jamboree, and the next generation of Okinawan science.
+            <br/><br/>
+            For details on sponsorship tiers, donation methods, and how your support is used, please visit our Support page.
           </p>
           <a href={withBase('support/')} class="btn btn-highlight btn-large">Support iGEM Okinawa →</a>
         </div>
@@ -229,7 +231,7 @@ const footerLinks = navItems.map((item) => ({
   }
   .portal-shisa {
     flex-shrink: 0;
-    width: clamp(60px, 15vw, 160px);
+    width: clamp(120px, 30vw, 320px);
   }
   .portal-shisa img {
     width: 100%;
@@ -237,7 +239,7 @@ const footerLinks = navItems.map((item) => ({
     display: block;
   }
   @media (max-width: 480px) {
-    .portal-shisa { width: clamp(40px, 12vw, 60px); }
+    .portal-shisa { width: clamp(80px, 24vw, 120px); }
   }
   /* Team blocks */
   .team-blocks {
