@@ -39,13 +39,8 @@ export function getMainNav(locale: SiteLocale): NavItem[] {
         { label: 'Home', href: withBase(`${prefix}`) },
         { label: 'About', href: withBase(`${prefix}about/`) },
         { label: 'Project', href: withBase(`${prefix}project/`) },
-        {
-          label: 'Activities',
-          href: withBase(`${prefix}activities/`),
-          children: [
-            { label: 'Human Practice', href: withBase(`${prefix}activities/human-practice/`) }
-          ]
-        },
+        { label: 'Highlight', href: withBase(`${prefix}activities/`) },
+        { label: 'News', href: withBase(`${prefix}news/`) },
         { label: 'Team', href: withBase(`${prefix}team/`) },
         { label: 'Support', href: withBase(`${prefix}support/`) },
         { label: 'Contact', href: withBase(`${prefix}contact/`) },
@@ -55,13 +50,8 @@ export function getMainNav(locale: SiteLocale): NavItem[] {
         { label: 'ホーム', href: withBase(`${prefix}`) },
         { label: '概要', href: withBase(`${prefix}about/`) },
         { label: 'プロジェクト', href: withBase(`${prefix}project/`) },
-        {
-          label: '活動',
-          href: withBase(`${prefix}activities/`),
-          children: [
-            { label: 'ヒューマンプラクティス', href: withBase(`${prefix}activities/human-practice/`) }
-          ]
-        },
+        { label: 'Highlight', href: withBase(`${prefix}activities/`) },
+        { label: 'News', href: withBase(`${prefix}news/`) },
         { label: 'チーム', href: withBase(`${prefix}team/`) },
         { label: '支援', href: withBase(`${prefix}support/`) },
         { label: 'お問い合わせ', href: withBase(`${prefix}contact/`) },

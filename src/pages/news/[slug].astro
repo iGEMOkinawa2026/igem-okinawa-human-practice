@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { withBase } from '../../lib/paths';
+
+export async function getStaticPaths() {
+  const newsEntries = await getCollection('news');
+  return newsEntries.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<PageLayout
+  title={`${post.data.title} | News`}
+  description={post.data.summary || post.data.title}
+  locale="en"
+>
+  <PageHero
+    title="News"
+    subtitle="Latest updates from our team."
+    breadcrumbs={[
+      { label: 'Home', href: withBase('') },
+      { label: 'News', href: withBase('news/') },
+    ]}
+  />
+
+  <article class="section">
+    <div class="container news-content-container" style="max-width: 800px; margin: 0 auto;">
+      <header class="news-header" style="text-align: center; margin-bottom: 3rem;">
+        <p class="news-date" style="color: var(--color-secondary); font-weight: 600; margin-bottom: 1rem;">{post.data.date}</p>
+        <h1 style="color: var(--color-primary); font-size: clamp(2rem, 1.5rem + 2vw, 3rem); margin-bottom: 1rem;">{post.data.title}</h1>
+        {post.data.tags && post.data.tags.length > 0 && (
+          <div class="news-tags" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
+            {post.data.tags.map(tag => <span class="tag" style="font-size: 0.8rem; background: var(--color-bg-alt); padding: 0.25rem 0.75rem; border-radius: 999px;">{tag}</span>)}
+          </div>
+        )}
+      </header>
+
+      {post.data.image && (
+        <div class="news-hero-image" style="margin-bottom: 3rem;">
+          <img src={withBase(post.data.image)} alt={post.data.title} style="width: 100%; border-radius: var(--border-radius-lg);" />
+        </div>
+      )}
+
+      <div class="content" style="font-size: 1.125rem; line-height: 1.8;">
+        <Content />
+      </div>
+    </div>
+  </article>
+</PageLayout>

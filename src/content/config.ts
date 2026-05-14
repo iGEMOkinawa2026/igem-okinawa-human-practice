@@ -43,15 +43,14 @@ const archive = defineCollection({
   }),
 });
 
-const humanPractice = defineCollection({
+const news = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    title_ja: z.string().optional(),
-    description: z.string().optional(),
-    description_ja: z.string().optional(),
-    sectionSlug: z.string(),
-    order: z.number().default(0),
+    date: z.string(),
+    summary: z.string().optional(),
+    image: z.string().optional(),
+    tags: z.array(z.string()).optional(),
   }),
 });
 
@@ -93,7 +92,7 @@ export const collections = {
   activities,
   sponsors,
   archive,
-  'human-practice': humanPractice,
+  news,
   members,
   project,
 };
