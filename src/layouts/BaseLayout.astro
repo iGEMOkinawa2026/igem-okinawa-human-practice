@@ -24,12 +24,15 @@ const { title, description, lang = 'en' } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;600;800&display=swap"
       rel="stylesheet"
     />
-    <meta property="og:image" content={`${Astro.site}og-image.png`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://igemokinawa2026.github.io/igem-okinawa/" />
+    <meta property="og:title" content="iGEM Okinawa 2026" />
+    <meta property="og:description" content="iGEM Okinawa 2026 official website" />
+    <meta property="og:image" content="https://igemokinawa2026.github.io/igem-okinawa/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:type" content="image/png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content={`${Astro.site}og-image.png`} />
+    <meta name="twitter:image" content="https://igemokinawa2026.github.io/igem-okinawa/og-image.png" />
   </head>
   <body>
     <slot />
