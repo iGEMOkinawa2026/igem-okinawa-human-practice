@@ -1,6 +1,6 @@
 ---
 name: Kishin Inoue
-name_ja: 井上 紀新
+name_ja: 井上 己新
 role: Human Practice team leader
 role_ja: Human Practiceチームリーダー
 team: human practice
